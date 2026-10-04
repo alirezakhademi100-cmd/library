@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>کتابخانه من</title>
+<meta name="theme-color" content="#f1efe9"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ef;--card:#ffffffcc;--ink:#1c1b22;--mut:#6d6a78;--line:#0000001a;--acc:#6d4aff;--acc2:#ff5c8a;--sh:0 10px 40px #2b1d6a22;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e0d16;--card:#1a1826cc;--ink:#f2f0fa;--mut:#9b97ad;--line:#ffffff1c;--sh:0 10px 40px #0008}}
+:root[data-theme="dark"]{--bg:#0e0d16;--card:#1a1826cc;--ink:#f2f0fa;--mut:#9b97ad;--line:#ffffff1c;--sh:0 10px 40px #0008}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,Tahoma,sans-serif;min-height:100vh;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.bg i{position:absolute;width:46vmax;height:46vmax;border-radius:50%;filter:blur(90px);opacity:.35;animation:fl 18s ease-in-out infinite alternate}
+.bg i:nth-child(1){background:var(--acc);top:-15vmax;right:-10vmax}
+.bg i:nth-child(2){background:var(--acc2);bottom:-18vmax;left:-12vmax;animation-delay:-6s}
+.bg i:nth-child(3){background:#27d3c3;top:30%;left:35%;width:28vmax;height:28vmax;opacity:.22;animation-delay:-11s}
+@keyframes fl{to{transform:translate(6vmax,5vmax) scale(1.18) rotate(40deg)}}
+.wrap{max-width:1180px;margin:auto;padding:28px 18px 90px}
+header{display:flex;flex-wrap:wrap;gap:18px;align-items:end;justify-content:space-between;animation:up .8s cubic-bezier(.2,.9,.2,1) both}
+h1{margin:0;font-size:clamp(30px,6vw,52px);font-weight:800;background:linear-gradient(100deg,var(--acc),var(--acc2),var(--acc));background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 6s linear infinite}
+@keyframes sh{to{background-position:-250% 0}}
+.sub{color:var(--mut);margin:6px 0 0;font-weight:300}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;margin-top:20px}
+.st{background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--sh);animation:up .8s both;animation-delay:calc(var(--i)*90ms + 150ms)}
+.st b{display:block;font-size:26px;font-weight:800}.st span{color:var(--mut);font-size:12.5px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 12px;animation:up .8s .35s both}
+.bar input{flex:1;min-width:200px}
+input,textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;outline:none;transition:.25s}
+input:focus{border-color:var(--acc);box-shadow:0 0 0 4px #6d4aff2b}
+.btn{font:inherit;border:0;cursor:pointer;border-radius:14px;padding:12px 20px;color:#fff;font-weight:600;background:linear-gradient(120deg,var(--acc),var(--acc2));box-shadow:0 8px 24px #6d4aff55;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
+.btn:hover{transform:translateY(-2px) scale(1.03)}.btn:active{transform:scale(.97)}
+.btn.g{background:var(--card);color:var(--ink);box-shadow:none;border:1px solid var(--line)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;animation:up .8s .45s both}
+.chip{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:6px 14px;cursor:pointer;transition:.25s}
+.chip:hover{transform:translateY(-2px)}.chip.on{background:var(--ink);color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:18px;perspective:1100px}
+.card{position:relative;display:flex;gap:14px;background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:var(--sh);transform-style:preserve-3d;transition:transform .25s ease-out,box-shadow .3s;animation:pop .7s cubic-bezier(.2,1.2,.3,1) both;animation-delay:calc(var(--i)*55ms)}
+.card:hover{box-shadow:0 22px 50px #6d4aff33}
+.cv{flex:0 0 86px;height:126px;border-radius:6px 12px 12px 6px;padding:10px 8px;color:#fff;font-weight:800;font-size:13px;line-height:1.5;display:flex;align-items:flex-end;box-shadow:-6px 8px 18px #0004,inset 5px 0 0 #0003;transform:translateZ(30px) rotateY(-8deg);overflow:hidden;position:relative}
+.cv:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,#fff0 30%,#ffffff55 50%,#fff0 70%);transform:translateX(-120%);transition:transform .9s}
+.card:hover .cv:after{transform:translateX(120%)}
+.inf{min-width:0;flex:1;transform:translateZ(18px)}
+.inf h3{margin:2px 0 6px;font-size:16.5px;font-weight:800;overflow-wrap:anywhere}
+.inf p{margin:2px 0;font-size:12.8px;color:var(--mut);overflow-wrap:anywhere}.inf p b{color:var(--ink);font-weight:600}
+.tag{display:inline-block;margin-top:6px;font-size:11.5px;padding:3px 10px;border-radius:99px;color:#fff}
+.loc{margin-top:8px;font-size:12.5px;border:1px dashed var(--line);border-radius:10px;padding:6px 10px;cursor:pointer;background:none;color:var(--mut);font-family:inherit;width:100%;text-align:right;transition:.2s}
+.loc:hover{border-color:var(--acc);color:var(--acc)}.loc.ok{border-style:solid;color:var(--ink)}
+.acts{position:absolute;top:8px;left:8px;display:flex;gap:4px;opacity:.9;transition:.2s;transform:translateZ(40px);z-index:3}
+.card:hover .acts,.card:focus-within .acts{opacity:1}
+.acts button{border:0;background:var(--bg);color:var(--ink);width:34px;height:34px;border-radius:10px;font-size:15px;cursor:pointer;box-shadow:0 2px 8px #0002}
+.empty{text-align:center;padding:70px 10px;color:var(--mut);animation:up .8s both}.empty .em{font-size:64px}
+@keyframes bob{50%{transform:translateY(-12px) rotate(4deg)}}
+.md{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;background:#0009;backdrop-filter:blur(8px);padding:16px}
+.md.on{display:flex;animation:fi .3s both}
+.box{width:min(480px,100%);background:var(--bg);border:1px solid var(--line);border-radius:26px;padding:26px;box-shadow:0 30px 80px #0007;animation:pop .5s cubic-bezier(.2,1.3,.3,1) both}
+.pg{height:6px;background:var(--line);border-radius:9px;overflow:hidden;margin-bottom:20px}.pg i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .5s cubic-bezier(.2,1,.3,1)}
+.q{animation:up .45s both}.q small{color:var(--mut)}.q h2{margin:4px 0 14px;font-size:22px}.q input{width:100%;font-size:16px}
+.q .chips{margin:12px 0 0;animation:none}
+.row{display:flex;gap:8px;justify-content:space-between;margin-top:20px}
+.shake{animation:sk .4s}@keyframes sk{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:99px;z-index:30;animation:up .4s both}
+.iw{position:relative}.iw input{padding-left:54px}
+.mic{position:absolute;left:6px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;font-size:18px;background:linear-gradient(120deg,var(--acc),var(--acc2));color:#fff;transition:.2s}
+.mic.on{animation:pl 1s infinite}.bar .iw{flex:1;min-width:200px}.bar .iw input{width:100%}
+@keyframes pl{0%{box-shadow:0 0 0 0 #ff5c8aaa}100%{box-shadow:0 0 0 16px #ff5c8a00}}
+.gv{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));right:18px;z-index:15;font-size:15px;padding:14px 22px;border-radius:99px}
+.gv.on{animation:pl 1.2s infinite}
+.cv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.cv[data-a],.inf h3[data-a]{cursor:pointer}
+.lend{color:var(--ink)!important}.lend.od{color:#ff3b5c!important;font-weight:600}
+.al{display:none;background:#ff3b5c1f;border:1px solid #ff3b5c66;color:var(--ink);border-radius:16px;padding:12px 16px;margin-bottom:16px;animation:up .6s both}.al.on{display:block}
+.dt{display:grid;gap:10px}.dt label{font-size:13px;color:var(--mut)}.dt input{width:100%}
+.pv{height:170px;border-radius:14px;border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--mut)}.pv img{width:100%;height:100%;object-fit:cover}
+.grid{perspective:none}.st{backdrop-filter:none;transition:transform .3s,box-shadow .3s}.st:hover{transform:translateY(-4px)}
+.st:before{float:left;font-size:26px}.st:nth-child(1):before{content:"📚"}.st:nth-child(2):before{content:"✍️"}.st:nth-child(3):before{content:"🏷"}.st:nth-child(4):before{content:"📍"}
+.st b{background:linear-gradient(120deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.card{backdrop-filter:none;display:block;padding:0;transform-style:flat;perspective:900px;opacity:0;animation:none;transition:box-shadow .3s,border-color .3s}
+.card.v{animation:pop .7s cubic-bezier(.2,1.2,.3,1) both;animation-delay:calc(var(--i)*40ms)}.card.s{animation:none!important;opacity:1}
+.card:hover{border-color:var(--acc)}
+.ci{display:flex;gap:14px;padding:14px;transform-style:preserve-3d;transition:transform .2s ease-out}
+.card:after{content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),#6d4aff26,transparent 65%);opacity:0;transition:opacity .3s}.card:hover:after{opacity:1}
+.bg:after{content:"";position:absolute;inset:0;background-image:radial-gradient(#8885 1px,transparent 1px);background-size:26px 26px;-webkit-mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%);mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%)}
+header{position:relative;padding-top:30px}.fb{position:absolute;top:-6px;font-size:22px;opacity:.4;pointer-events:none;animation:none}
+.btn:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,#fff5 50%,transparent 70%);transform:translateX(120%);transition:transform .6s}.btn:hover:after{transform:translateX(-120%)}
+#sp{position:fixed;top:0;right:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:40}
+select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;width:100%;outline:none}select:focus{border-color:var(--acc)}
+.md{padding:max(16px,env(safe-area-inset-top,0px)) 14px max(16px,env(safe-area-inset-bottom,0px));overflow-y:auto;-webkit-overflow-scrolling:touch}
+.box{max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+@media(max-height:760px){.pv{height:120px}.box{padding:18px}.q h2{font-size:19px}}
+.bg{background:var(--bg)}.bg i,.bg:after{display:none}
+:root{--bg:#f1efe9;--card:#ffffff;--sh:0 4px 16px #2b1d6a14}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15141c;--card:#201f2b;--sh:0 4px 16px #0004}}
+:root[data-theme="dark"]{--bg:#15141c;--card:#201f2b;--sh:0 4px 16px #0004}
+*{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}.md{background:#000a}
+.inf p.ds{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;color:var(--ink);opacity:.85;margin-top:8px;line-height:1.8}
+@keyframes sheet{from{transform:translateY(100%)}}
+@media(max-width:480px){
+ input,textarea,select{font-size:16px}
+ .wrap{padding:16px 14px calc(120px + env(safe-area-inset-bottom,0px))}
+ h1{font-size:30px}.sub{font-size:13px}.fb{display:none}
+ header>div:last-of-type{display:flex;gap:8px;overflow-x:auto;width:100%;padding-bottom:2px;scrollbar-width:none}
+ header>div:last-of-type::-webkit-scrollbar{display:none}
+ .btn{white-space:nowrap;min-height:46px;flex:0 0 auto}
+ #add{position:fixed;left:14px;right:78px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;border-radius:99px;font-size:17px;box-shadow:0 10px 28px #6d4aff66;flex:none}
+ .gv{font-size:0;width:54px;height:54px;padding:0;right:14px;bottom:calc(16px + env(safe-area-inset-bottom,0px))}.gv:before{content:"🎙";font-size:24px}
+ .stats{gap:8px;margin-top:14px}.st{padding:12px 14px;border-radius:16px}.st b{font-size:22px}
+ .bar{margin:16px 0 10px}.bar .iw{min-width:0}
+ .chips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-inline:-14px;padding:2px 14px 4px;scrollbar-width:none}
+ .chips::-webkit-scrollbar{display:none}.chip{flex:0 0 auto;min-height:40px;padding:8px 16px}
+ .q .chips{flex-wrap:wrap;overflow:visible;margin-inline:0;padding:0}
+ .grid{grid-template-columns:1fr;gap:14px}
+ .acts button{width:40px;height:40px}
+ .loc{min-height:44px}
+ .md{padding:0;align-items:flex-end}
+ .box{width:100%;border-radius:26px 26px 0 0;max-height:92vh;max-height:92dvh;padding:22px 18px calc(22px + env(safe-area-inset-bottom,0px));animation:sheet .4s cubic-bezier(.2,.9,.2,1) both}
+ .row{gap:8px}.row .btn{flex:1}.row>div{flex:1;display:flex;gap:8px}
+ .toast{bottom:calc(90px + env(safe-area-inset-bottom,0px));max-width:90vw;text-align:center}
+}
+#fab{display:none}
+@media(max-width:480px){
+ header>div:last-of-type{display:grid!important;grid-template-columns:1fr 1fr;gap:8px;overflow:visible!important;width:100%}
+ header>div:last-of-type .btn{width:100%;min-height:44px;padding:10px 8px;font-size:14px;white-space:nowrap}
+ #add{display:none!important}
+ #fab{display:block;position:fixed;left:14px;right:80px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;border-radius:99px;font-size:17px;min-height:54px;box-shadow:0 10px 28px #6d4aff66}
+ .card{perspective:none!important}
+ .ci{flex-wrap:wrap;transform:none!important;transform-style:flat!important;gap:12px;padding:14px}
+ .cv{flex:0 0 78px;height:112px;transform:none!important;box-shadow:0 4px 12px #0003,inset 4px 0 0 #0003}
+ .inf{flex:1 1 0;min-width:0;transform:none!important}
+ .acts{position:static!important;opacity:1;transform:none!important;order:3;flex:0 0 100%;display:flex;gap:8px;border-top:1px solid var(--line);padding-top:10px}
+ .acts button{flex:1;width:auto;height:42px;font-size:14px}
+ .acts [data-a=e]:after{content:" ویرایش"}.acts [data-a=d]:after{content:" حذف"}
+}
+@media(max-width:480px){
+ .st:before{display:none}.st{padding:10px 14px}.st b{font-size:20px}
+ header>div:last-of-type .btn{min-height:40px;padding:8px 6px;font-size:13px}
+ h1{font-size:28px}
+}
+@media(max-width:480px){.cv{align-items:flex-start;font-size:12px;overflow-wrap:anywhere}}
+#mail{font-weight:600}
+:root{--bg:#f5f7fd;--card:#ffffffee;--line:#1b1f3a14;--sh:0 6px 22px #3b4a8c14}
+.bg{background:linear-gradient(180deg,#fafbff,#edf2fc 70%,#e9effb)}
+.bg:before{content:"کتاب، دریچه‌ای به جهان";position:absolute;left:5%;width:90%;top:16%;text-align:center;font-family:"Noto Nastaliq Urdu",serif;font-size:min(15vw,112px);line-height:2.2;color:#4a3fd0;opacity:.07;pointer-events:none}
+.bg:after{display:block!important;content:"";position:absolute;inset:0;background:url(calligraphy.png) center/contain no-repeat;opacity:.12;pointer-events:none}
+@media(max-width:480px){#mail{grid-column:1/-1}}
+@keyframes up{from{opacity:0;transform:translateY(24px)}}
+@keyframes pop{from{opacity:0;transform:translateY(30px) scale(.88) rotateX(12deg)}}
+@keyframes fi{from{opacity:0}}
+@media(max-width:620px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div id="sp"></div><div class="bg"><i></i><i></i><i></i></div>
+<div class="wrap">
+<header><span class="fb" style="--d:0s;left:42%">📕</span><span class="fb" style="--d:-2s;left:55%">📗</span><span class="fb" style="--d:-4s;left:68%">📘</span><div><h1>📚 کتابخانه من</h1><p class="sub">فهرست کتاب‌ها، نویسنده‌ها و جای هر کتاب در قفسه</p></div>
+<div style="display:flex;gap:8px"><button class="btn g" id="bk">💾 پشتیبان</button><button class="btn g" id="im">⬆ ورود فایل</button><input type="file" id="imf" accept=".json,.csv,text/csv,application/json" hidden><button class="btn g" id="shr">🔗 لینک اشتراک</button><button class="btn g" id="exp">⬇ خروجی CSV</button><button class="btn g" id="mail">✉ ارسال پشتیبان به ایمیل</button><button class="btn" id="add">＋ افزودن کتاب</button></div></header>
+<div class="stats" id="stats"></div>
+<div class="bar"><div class="iw"><input id="s" placeholder="🔍 جستجو (تایپی یا صوتی 🎤)…"><button class="mic" id="smic" type="button" title="جستجوی صوتی">🎤</button></div></div>
+<div class="chips" id="chips"></div>
+<div class="al" id="al"></div>
+<div class="grid" id="grid"></div>
+</div>
+<button class="btn" id="fab">＋ افزودن کتاب</button>
+<button class="btn gv" id="gv">🎙 فرمان صوتی کل سایت</button>
+<div class="md" id="md"><div class="box" id="box"></div></div>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fa=n=>Number(n).toLocaleString("fa-IR");
+const F=[
+{k:"title",q:"نام کتاب چیست؟",ph:"مثلاً: بوف کور",req:1},
+{k:"author",q:"نام نویسنده کیست؟",ph:"مثلاً: صادق هدایت",req:1},
+{k:"translator",q:"نام مترجم؟",ph:"اگر مترجم ندارد، رد کنید",opt:1},
+{k:"publisher",q:"نام انتشارات؟",ph:"مثلاً: نشر چشمه"},
+{k:"genre",q:"ژانر کتاب؟",ph:"انتخاب کنید یا بنویسید",chips:["رمان","شعر","تاریخ","فلسفه","روانشناسی","علمی","حسابداری و اقتصاد","کودک","مذهبی","دیگر"],req:1},
+{k:"place",q:"جای کتاب در کتابخانه؟",ph:"مثلاً: قفسه ۲ – ردیف ۳ (می‌توانید بعداً ثبت کنید)",opt:1}];
+let books=[],q="",gf="all",cur=null,col=null;
+const hue=s=>{let h=0;for(const c of String(s||"؟"))h=(h*31+c.charCodeAt(0))%360;return h};
+const LS="lib_books_v1";
+function toast(t){const e=document.createElement("div");e.className="toast";e.textContent=t;document.body.append(e);setTimeout(()=>e.remove(),2600)}
+function count(el,to){const t0=performance.now(),from=+el.dataset.v||0;el.dataset.v=to;(function f(t){const p=Math.min(1,(t-t0)/900),e=1-Math.pow(1-p,3);el.textContent=fa(Math.round(from+(to-from)*e));if(p<1)requestAnimationFrame(f)})(t0)}
+function render(){
+ const g=[...new Set(books.map(b=>b.genre).filter(Boolean))];
+ const st=[["کل کتاب‌ها",books.length],["نویسنده",new Set(books.map(b=>b.author).filter(Boolean)).size],["ژانر",g.length],["بدون جای ثبت‌شده",books.filter(b=>!b.place).length]];
+ if(!$("stats").children.length)$("stats").innerHTML=st.map((x,i)=>`<div class="st" style="--i:${i}"><b data-v="0">۰</b><span>${x[0]}</span></div>`).join("");
+ [...$("stats").querySelectorAll("b")].forEach((b,i)=>count(b,st[i][1]));
+ $("chips").innerHTML=["all",...g].map(x=>`<button class="chip ${gf===x?"on":""}" data-g="${esc(x)}">${x==="all"?"همه":esc(x)}</button>`).join("");
+ const k=q.trim().toLowerCase();
+ const L=books.filter(b=>(gf==="all"||b.genre===gf)&&(!k||[b.title,b.author,b.translator,b.publisher,b.genre,b.place].join(" ").toLowerCase().includes(k)));
+ $("grid").innerHTML=L.length?L.map((b,i)=>{const h=hue(b.genre);return `<article class="card" style="--i:${Math.min(i,14)}" data-id="${esc(b.id)}"><div class="ci">
+ <div class="acts"><button data-a="e" title="ویرایش">✎</button><button data-a="d" title="حذف">✕</button></div>
+ <div class="cv" data-a="v" title="جزئیات و عکس" style="background:linear-gradient(145deg,hsl(${h} 70% 55%),hsl(${(h+50)%360} 70% 38%))">${/^data:image\//.test(b.photo||"")?`<img src="${b.photo}" alt="">`:esc(b.title)}</div>
+ <div class="inf"><h3 data-a="v" title="جزئیات، عکس و قرض">${esc(b.title)}</h3><p>✍️ <b>${esc(b.author)||"—"}</b></p><p>🌐 مترجم: ${esc(b.translator)||"ندارد"}</p><p>🏛 ${esc(b.publisher)||"—"}</p>${lendLine(b)}${b.desc?`<p class="ds">${esc(b.desc)}</p>`:""}
+ <span class="tag" style="background:hsl(${h} 60% 45%)">${esc(b.genre)||"بدون ژانر"}</span>
+ <button class="loc ${b.place?"ok":""}" data-a="p">📍 ${b.place?esc(b.place):"جای کتاب ثبت نشده — ثبت کن"}</button></div></div></article>`}).join(""):
+ `<div class="empty" style="grid-column:1/-1"><div class="em">📖</div><h3>${books.length?"کتابی پیدا نشد":"کتابخانه هنوز خالی است"}</h3><p>${books.length?"جستجو یا فیلتر را تغییر دهید":"روی «افزودن کتاب» بزنید تا اولین کتاب ثبت شود"}</p></div>`;
+}
+function wiz(){clearTimeout(advT);
+ const s=F[cur.i],last=cur.i===F.length-1||cur.only,v=cur.d[s.k]||"";
+ $("box").innerHTML=`<div class="pg"><i style="width:${cur.only?100:((cur.i+1)/F.length*100)}%"></i></div>
+ <div class="q" id="qq"><small>${cur.only?"ثبت جای کتاب":"مرحله "+fa(cur.i+1)+" از "+fa(F.length)}</small><h2>${s.q}</h2>
+ <div class="iw"><input id="in" value="${esc(v)}" placeholder="${esc(s.ph)}" autocomplete="off"><button class="mic" id="mic" type="button" title="گفتن با صدا">🎤</button></div><div class="chips" style="margin:12px 0 0"><button type="button" class="chip ${talk?"on":""}" id="tk">🎙 حالت گفتگوی صوتی (سوال را می‌خواند و جواب شما را می‌شنود)</button></div>
+ ${s.chips?`<div class="chips">${s.chips.map(c=>`<button type="button" class="chip" data-c="${c}">${c}</button>`).join("")}</div>`:""}</div>
+ <div class="row"><button class="btn g" id="pv" ${cur.i===0||cur.only?"style='visibility:hidden'":""}>→ قبلی</button>
+ <div style="display:flex;gap:8px"><button class="btn g" id="x">انصراف</button><button class="btn" id="nx">${last?"✔ ثبت کتاب":(s.opt&&!v?"رد کردن ←":"بعدی ←")}</button></div></div>`;
+ if(stickyOn&&$("mic"))$("mic").classList.add("on");setTimeout(()=>$("in").focus(),60);if(talk)primeMic().then(ok=>{if(ok)speak(s.q,()=>listen($("in"),voiceNext));else talk=false});
+}
+let ro=false;
+function openWiz(b,only){if(ro)return toast("نسخه اشتراکی فقط‌خواندنی است");cur={id:b&&b.id,d:{...(b||{})},i:only?5:0,only:!!only};delete cur.d.id;wiz();$("md").classList.add("on")}
+function closeWiz(){stickyStop();stopVoice();talk=false;if(gOn)setTimeout(gListen,500);$("md").classList.remove("on");cur=null}
+function nxt(){
+ const s=F[cur.i],v=$("in").value.trim();
+ if(s.req&&!v){$("in").classList.add("shake");setTimeout(()=>$("in")&&$("in").classList.remove("shake"),400);return}
+ cur.d[s.k]=v;
+ if(cur.i===F.length-1||cur.only){const wasNew=!cur.id,base={...cur.d};save(cur.id,cur.d).then(nid=>{if(wasNew&&nid&&!base.desc)setTimeout(()=>describe(nid,base),700)});closeWiz()}else{cur.i++;wiz()}
+}
+async function save(id,d){if(ro)return;
+ d={...d,ts:d.ts||Date.now()};delete d.id;
+ try{
+  if(col){if(id)await col.doc(id).set(d);else id=(await col.add(d)).id}
+  else{if(id)books=books.map(b=>b.id===id?{...d,id}:b);else{id="l"+Date.now();books.unshift({...d,id})}local();render()}
+  if(!quiet)toast("✔ ذخیره شد");return id
+ }catch(e){toast("امکان ذخیره نیست؛ دسترسی ویرایش ندارید")}
+}
+const ask=m=>new Promise(r=>{$("box").innerHTML=`<h2 style="margin-top:0">🗑 حذف کتاب</h2><p>${esc(m)}</p><div class="row"><button class="btn g" id="n">انصراف</button><button class="btn" id="y" style="background:#ff3b5c;box-shadow:none">بله، حذف کن</button></div>`;$("md").classList.add("on");$("n").onclick=()=>{closeWiz();r(false)};$("y").onclick=()=>{closeWiz();r(true)}});
+async function del(id){if(ro)return toast("نسخه اشتراکی فقط‌خواندنی است");
+ {const b=books.find(x=>x.id===id);if(!await ask("«"+(b?b.title:"")+"» از کتابخانه حذف شود؟"))return}
+ try{if(col)await col.doc(id).delete();else{books=books.filter(b=>b.id!==id);local();render()}}catch(e){toast("دسترسی حذف ندارید")}
+}
+function local(){try{localStorage.setItem(LS,JSON.stringify(books))}catch(e){}}
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const IOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+const FR=(()=>{try{return window.top!==window.self}catch(e){return true}})();
+let stickyRec=null,stickyOn=false;
+function stickyStop(){stickyOn=false;try{stickyRec&&(stickyRec.onend=null,stickyRec.abort())}catch(e){}stickyRec=null;document.querySelectorAll(".mic.on").forEach(m=>m.classList.remove("on"))}
+function stickyHandle(t,alts){if(!cur)return;clearTimeout(advT);const s=F[cur.i];t=normFa(t);
+ if(s.opt&&/^(رد|ندارد|ندارم|خالی|بعدا|بعداً|نه)( کن)?$/.test(t))t="";
+ if(s.req&&!t){toast("متوجه نشدم، دوباره بگویید");return}
+ if(["author","translator","publisher","genre"].includes(s.k)&&t)t=snap(s.k,t);
+ $("in").value=t;
+ const al=[...new Set((alts||[]).map(normFa).filter(x=>x&&x!==t))].slice(0,2);
+ let bx=$("alt");if(!bx){bx=document.createElement("div");bx.id="alt";bx.className="chips";$("in").parentNode.after(bx)}
+ bx.innerHTML=(al.length?'<small style="color:var(--mut)">شاید منظورتان این بود:</small>':"")+al.map(a=>`<button type="button" class="chip" data-alt="${esc(a)}">${esc(a)}</button>`).join("");
+ if(!t){nxt();return}
+ toast("✓ «"+t+"» — برای اصلاح روی کادر بزنید");advT=setTimeout(()=>nxt(),3000)}
+async function stickyStart(){
+ if(stickyOn)return;if(!await primeMic())return;
+ const r=new SR();r.lang="fa-IR";r.continuous=true;r.interimResults=true;stickyRec=r;stickyOn=true;
+ const m=$("mic");m&&m.classList.add("on");toast("🎤 گوش می‌دهم؛ جواب هر مرحله را پشت‌سرهم بگویید. برای توقف دوباره 🎤 بزنید");
+ r.maxAlternatives=3;r.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++){const x=e.results[i];if(x.isFinal){const t=x[0].transcript;if(t.trim())stickyHandle(t,Array.from(x,a=>a.transcript))}else if($("in"))$("in").value=x[0].transcript}};
+ r.onerror=e=>{if(e.error==="not-allowed"||e.error==="service-not-allowed"){stickyStop();toast("اجازه میکروفون داده نشده؛ روی 🔒 کنار آدرس Microphone را Allow کنید")}};
+ r.onend=()=>{if(stickyOn&&cur){try{r.start()}catch(e){stickyStop();toast("برای ادامه دوباره 🎤 بزنید")}}else stickyStop()};
+ try{r.start()}catch(e){stickyStop()}
+}
+let micStream=null,micAsked=false;
+async function primeMic(){
+ if(micStream)return true;
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return true;
+ try{micStream=await navigator.mediaDevices.getUserMedia({audio:true});micAsked=true;return true}
+ catch(e){micAsked=true;toast("اجازه میکروفون داده نشده؛ روی 🔒 کنار آدرس بزنید و Microphone را Allow کنید");return false}
+}
+function dictHint(el){el.focus();toast("🎤 روی دکمه میکروفون کیبورد آیفون بزنید و صحبت کنید")}
+function cmdBox(){$("box").innerHTML=`<h2 style="margin-top:0">🎙 فرمان صوتی</h2><p style="color:var(--mut);font-size:14px;line-height:1.9">۱) داخل کادر بزنید ۲) روی 🎤 کیبورد آیفون بزنید و فرمان را بگویید ۳) «اجرا» را بزنید</p><p style="font-size:12.5px;color:var(--mut);line-height:1.8">⚠️ داخل claude.ai مرورگر میکروفون را مسدود می‌کند. برای میکروفون واقعی، نسخه مستقل (index.html) را روی هاست خودتان در Safari باز کنید.</p><input id="ci" enterkeyhint="go" lang="fa" placeholder="مثلاً: کتاب جدید / جستجو حافظ / ژانر رمان"><div style="font-size:13px;color:var(--mut);margin-top:10px;line-height:1.9">«کتاب جدید» · «جستجو …» · «ژانر …» · «همه» · «ویرایش …» · «حذف …» · «جای …» · «بخوان» · «خروجی»</div><div class="row"><button class="btn g" id="cx">بستن</button><button class="btn" id="cg">اجرا</button></div>`;$("md").classList.add("on");
+ const run=()=>{const v=nz($("ci").value);if(!v)return;closeWiz();cmd(v)};$("cg").onclick=run;$("cx").onclick=closeWiz;$("ci").onkeydown=e=>{if(e.key==="Enter")run()};setTimeout(()=>$("ci").focus(),80)}let rec=null,talk=false;
+function stopVoice(){try{rec&&(rec.onend=null,rec.abort())}catch(e){}rec=null;try{speechSynthesis.cancel()}catch(e){}document.querySelectorAll(".mic.on").forEach(m=>m.classList.remove("on"))}
+function speak(t,cb){try{stopVoice();const u=new SpeechSynthesisUtterance(t);u.lang="fa-IR";u.onend=u.onerror=()=>talk&&cb();speechSynthesis.speak(u)}catch(e){cb()}}
+function listen(el,done){
+ if(!SR){toast("این مرورگر تشخیص صدا ندارد؛ از Chrome یا Safari استفاده کنید");talk=false;return}
+ if(!micAsked){primeMic().then(ok=>{if(ok)listen(el,done);else talk=false});return}
+ stopVoice();const mic=el&&el.id==="in"?$("mic"):(el&&el.id==="s"?$("smic"):null);let fin="";
+ try{rec=new SR()}catch(e){return}
+ rec.lang="fa-IR";rec.interimResults=true;rec.continuous=false;mic&&mic.classList.add("on");
+ rec.onresult=e=>{let t="";for(const r of e.results)t+=r[0].transcript;el.value=t;if(el.id==="s"){q=t;render()}if(e.results[e.results.length-1].isFinal)fin=t};
+ rec.onerror=e=>{mic&&mic.classList.remove("on");talk=false;if(e.error!=="no-speech"&&e.error!=="aborted")toast(e.error==="not-allowed"||e.error==="service-not-allowed"?"اجازه میکروفون داده نشده. در آیفون: لینک را در Safari باز کنید، Allow را بزنید (تنظیمات ← Safari ← Microphone)":"خطا در تشخیص صدا")};
+ rec.onend=()=>{mic&&mic.classList.remove("on");if(fin)done&&done(fin);else if(talk&&cur&&el.isConnected)listen(el,done)};
+ try{rec.start()}catch(e){toast("میکروفون در دسترس نیست")}
+}
+function voiceNext(t){
+ if(!cur)return;const s=F[cur.i];t=t.trim();
+ if(s.opt&&/^(رد|ندارد|ندارم|خالی|بعدا|بعداً|نه)/.test(t))t="";
+ if(s.req&&!t){speak("متوجه نشدم، دوباره بگویید",()=>listen($("in"),voiceNext));return}
+ $("in").value=t;nxt();
+}
+let gOn=false;
+const nz=t=>t.replace(/ي/g,"ی").replace(/ك/g,"ک").replace(/[.،؟!]/g,"").trim();
+function gSay(t){toast(t);try{stopVoice();const u=new SpeechSynthesisUtterance(t);u.lang="fa-IR";u.onend=u.onerror=()=>{if(gOn&&!cur)gListen()};speechSynthesis.speak(u)}catch(e){gOn&&!cur&&gListen()}}
+function gSet(on){gOn=on;$("gv").classList.toggle("on",on);$("gv").textContent=on?"🎙 در حال گوش دادن… (برای خاموشی: «توقف»)":"🎙 فرمان صوتی کل سایت";if(on)gListen();else stopVoice()}
+function gListen(){
+ if(!gOn||cur)return;
+ if(!SR){toast("این مرورگر تشخیص صدا ندارد؛ از Chrome یا Safari استفاده کنید");gSet(false);return}
+ stopVoice();try{rec=new SR()}catch(e){return}
+ rec.lang="fa-IR";rec.continuous=true;rec.interimResults=false;
+ rec.onresult=e=>{const t=e.results[e.results.length-1][0].transcript;if(t.trim())cmd(nz(t))};
+ rec.onerror=e=>{if(e.error==="not-allowed"||e.error==="service-not-allowed"){toast("اجازه میکروفون داده نشده. در آیفون: لینک را در Safari باز کنید، Allow را بزنید (تنظیمات ← Safari ← Microphone)");gOn=false;gSet(false)}};
+ rec.onend=()=>{if(gOn&&!cur)setTimeout(gListen,300)};
+ try{rec.start()}catch(e){}
+}
+const find=n=>books.find(b=>(b.title||"").includes(n))||books.find(b=>nz(b.title||"").includes(n));
+function cmd(t){
+ let m;toast("🎧 "+t);
+ if(/^(توقف|خاموش|قطع|بس کن)/.test(t))return gSet(false);
+ if(/(کتاب جدید|افزودن کتاب|اضافه کن|ثبت کتاب)/.test(t)){talk=true;return openWiz()}
+ if(m=t.match(/^(?:جستجو|جست و جو|پیدا کن|سرچ)\s+(.+)/)){q=m[1];$("s").value=q;render();return gSay(fa(books.filter(b=>[b.title,b.author,b.translator,b.publisher,b.genre,b.place].join(" ").includes(q)).length)+" نتیجه")}
+ if(/^(نمایش همه|همه کتابها|همه کتاب ها|پاک کردن جستجو|همه)$/.test(t)){q="";gf="all";$("s").value="";render();return gSay("همه کتاب‌ها نمایش داده شد")}
+ if(m=t.match(/^(?:ژانر|فیلتر)\s+(.+)/)){const g=books.map(b=>b.genre).find(x=>x&&(x.includes(m[1])||m[1].includes(x)));if(g){gf=g;render();return gSay("ژانر "+g)}return gSay("چنین ژانری پیدا نشد")}
+ if(m=t.match(/^حذف\s+(.+)/)){const b=find(m[1]);if(!b)return gSay("کتابی با این نام پیدا نشد");return del(b.id)}
+ if(m=t.match(/^ویرایش\s+(.+)/)){const b=find(m[1]);if(!b)return gSay("کتابی با این نام پیدا نشد");talk=true;return openWiz(b)}
+ if(m=t.match(/^(?:جای|مکان|محل)(?: کتاب)?\s+(.+)/)){const b=find(m[1]);if(!b)return gSay("کتابی با این نام پیدا نشد");talk=true;return openWiz(b,1)}
+ if(/(خروجی|دانلود)/.test(t)){$("exp").click();return gSay("خروجی آماده شد")}
+ if(/(بخوان|لیست|چند کتاب|چه کتاب)/.test(t)){const L=books.slice(0,6).map(b=>b.title+" از "+(b.author||"نامشخص")).join("، ");return gSay(books.length?`${fa(books.length)} کتاب دارید. ${L}`:"کتابخانه خالی است")}
+ if(/(کمک|راهنما)/.test(t)){$("box").innerHTML='<h2>🎙 فرمان‌های صوتی</h2><ul style="line-height:2.1;padding-right:20px"><li>«کتاب جدید» — ثبت گفتگویی کتاب</li><li>«جستجو …» — جستجوی هر کلمه</li><li>«ژانر …» — فیلتر ژانر</li><li>«همه» — پاک کردن فیلتر</li><li>«ویرایش …» / «حذف …» — با نام کتاب</li><li>«جای …» — ثبت جای کتاب</li><li>«بخوان» — خواندن لیست</li><li>«خروجی» — دانلود CSV</li><li>«توقف» — خاموش شدن</li></ul><div class="row"><button class="btn" onclick="closeWiz()">متوجه شدم</button></div>';$("md").classList.add("on");return}
+ gSay("متوجه نشدم. بگویید «کمک» تا فرمان‌ها را ببینید")
+}
+$("gv").onclick=async()=>{if(FR||!SR){cmdBox();return}if(!await primeMic())return;if(IOS){listen({id:"gv",value:"",isConnected:false},t=>cmd(nz(t)));return}gSet(!gOn)};
+$("smic").onclick=()=>{if(FR||!SR)dictHint($("s"));else primeMic().then(ok=>ok&&listen($("s"),()=>{}))};
+$("shr").onclick=async()=>{
+ const j=JSON.stringify(books.map(({title,author,translator,publisher,genre,place})=>({title,author,translator,publisher,genre,place})));
+ const u=location.href.split("#")[0]+"#d="+btoa(unescape(encodeURIComponent(j)));
+ try{await navigator.clipboard.writeText(u);toast("لینک اشتراک کپی شد ("+fa(books.length)+" کتاب)")}catch(e){prompt("این لینک را کپی کنید:",u)}};
+const dd=b=>b.lentTo&&b.lentDate?Math.floor((Date.now()-new Date(b.lentDate))/864e5):null;
+function lendLine(b){if(!b.lentTo)return"";const d=dd(b),od=d!==null&&d>=90;return `<p class="lend ${od?"od":""}">📤 قرض: <b>${esc(b.lentTo)}</b>${d!==null?" — "+fa(d)+" روز":""}${od?" ⚠️ باید پس بگیری":""}</p>`}
+let notified=false;const _r=render;const io=window.IntersectionObserver?new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("v");io.unobserve(x.target)}}),{threshold:.05}):null;let firstR=true;
+function reveal(){const cs=document.querySelectorAll(".card:not(.v)");if(!cs.length)return;if(!firstR||!io)cs.forEach(c=>c.classList.add("v","s"));else{cs.forEach(c=>io.observe(c));firstR=false}}
+addEventListener("scroll",()=>{const h=document.documentElement;$("sp").style.width=Math.min(100,scrollY/Math.max(1,h.scrollHeight-innerHeight)*100)+"%"},{passive:true});
+render=function(){_r();reveal();const od=books.filter(b=>{const d=dd(b);return d!==null&&d>=90}),al=$("al");
+ al.classList.toggle("on",od.length>0);al.innerHTML=od.length?"⏰ <b>یادآوری قرض:</b> "+od.map(b=>`«${esc(b.title)}» نزد ${esc(b.lentTo)} (${fa(dd(b))} روز)`).join("؛ ")+" — بیش از ۹۰ روز گذشته؛ وقت پس گرفتن است.":"";
+ if(od.length&&!notified){notified=true;try{if(window.Notification){const go=()=>new Notification("📚 وقت پس گرفتن کتاب",{body:od.map(b=>b.title+" ← "+b.lentTo).join("، ")});if(Notification.permission==="granted")go();else if(Notification.permission!=="denied")Notification.requestPermission().then(p=>p==="granted"&&go())}}catch(e){}}};
+let smp;async function getSmp(){if(smp!==undefined)return smp;try{smp=window.claude?await claude.use("sample"):null}catch(e){smp=null}return smp}
+async function genDesc(b){const f=await getSmp();if(!f){toast("توضیح خودکار در این محیط در دسترس نیست");return null}
+ try{const r=await f(`درباره این کتاب فقط ۳ تا ۴ جمله توضیح فارسی بنویس (موضوع و محتوا). اگر مطمئن نیستی این کتاب را می‌شناسی، فقط بنویس: «اطلاعات کافی ندارم».\nنام کتاب: ${b.title}\nنویسنده: ${b.author||"؟"}\nمترجم: ${b.translator||"-"}\nانتشارات: ${b.publisher||"-"}\nژانر: ${b.genre||"-"}\nفقط متن توضیح، بدون مقدمه.`,{modelTier:"quick"});
+  const t=(r.text||"").trim();if(!t||/اطلاعات کافی ندارم/.test(t)){toast("توضیحی برای این کتاب پیدا نشد");return null}return t}catch(e){if(!e||e.code!=="not_granted")toast("خطا در ساخت توضیحات");return null}}
+async function describe(id,base){const b=books.find(x=>x.id===id)||base;if(!b)return;toast("✨ در حال نوشتن توضیحات…");const t=await genDesc(b);if(t)save(id,{...b,id:undefined,desc:t})}
+let det=null,dph=null;
+function openDet(id){const b=books.find(x=>x.id===id);if(!b)return;det=id;dph=b.photo||"";
+ $("box").innerHTML=`<h2 style="margin-top:0">${esc(b.title)}</h2><div class="dt">
+ <div class="pv" id="pvv">${dph?`<img src="${dph}" alt="">`:"هنوز عکسی ثبت نشده"}</div>
+ <label class="btn g" style="display:block;text-align:center;cursor:pointer;position:relative;overflow:hidden">📷 ${dph?"تغییر عکس":"انتخاب عکس از گالری یا دوربین"}<input type="file" id="pf" accept="image/*" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px"></label>
+ <label>🗄 قفسه کتابخانه</label><select id="sh"><option value="">— انتخاب قفسه —</option>${(b.place&&!/^قفسه ./.test(b.place)?[b.place]:[]).concat(Array.from({length:20},(_,i)=>"قفسه "+fa(i+1))).map(p=>`<option ${p===b.place?"selected":""}>${esc(p)}</option>`).join("")}</select>
+ <label>📤 قرض داده شده به چه کسی؟</label><input id="lt" value="${esc(b.lentTo||"")}" placeholder="نام شخص (خالی = قرض داده نشده)">
+ <label>📅 تاریخ قرض دادن</label><input id="ld" type="date" value="${esc(b.lentDate||new Date().toISOString().slice(0,10))}">
+ <label>📝 توضیحات کتاب</label><textarea id="dsc" rows="4" placeholder="چند خط درباره کتاب…">${esc(b.desc||"")}</textarea><button class="btn g" id="ddg" type="button">✨ ساخت خودکار توضیحات</button><small style="color:var(--mut)">توضیح خودکار از دانش Claude نوشته می‌شود (جستجوی زنده وب نیست) و ممکن است نادقیق باشد؛ می‌توانید ویرایشش کنید.</small>
+ <small style="color:var(--mut)">اگر ۹۰ روز بگذرد، هشدار بالای صفحه نمایش داده می‌شود.</small></div>
+ <div class="row" style="flex-wrap:wrap"><button class="btn g" id="dx">بستن</button>${b.lentTo?'<button class="btn g" id="dcal">📅 یادآور تقویم</button><button class="btn g" id="dret">✔ برگشت داده شد</button>':""}<button class="btn g" id="ddl" style="color:#ff3b5c">🗑 حذف کتاب</button><button class="btn" id="dsv">ذخیره</button></div>`;$("md").classList.add("on")}
+function pic(f){return new Promise(r=>{const fr=new FileReader();fr.onerror=()=>r(null);fr.onload=()=>{const i=new Image();i.onerror=()=>r(null);i.onload=()=>{try{const k=Math.min(1,480/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=Math.max(1,Math.round(i.width*k));c.height=Math.max(1,Math.round(i.height*k));c.getContext("2d").drawImage(i,0,0,c.width,c.height);r(c.toDataURL("image/jpeg",.78))}catch(e){r(null)}};i.src=fr.result};fr.readAsDataURL(f)})}
+$("box").addEventListener("change",async e=>{if(e.target.id!=="pf")return;const f=e.target.files[0];if(!f)return;toast("⏳ در حال آماده‌سازی عکس…");const u=await pic(f);e.target.value="";if(!u)return toast("این عکس خوانده نشد؛ عکس دیگری (JPG یا PNG) انتخاب کنید");dph=u;$("pvv").innerHTML=`<img src="${u}" alt="">`;toast("✔ عکس آماده شد؛ «ذخیره» را بزنید")});
+$("box").addEventListener("click",e=>{const t=e.target.id,b=books.find(x=>x.id===det);if(!b||cur)return;
+ if(t==="dph")$("pf").click();
+ else if(t==="ddg"){toast("✨ در حال نوشتن…");genDesc(b).then(x=>{if(x)$("dsc").value=x})}
+ else if(t==="dx")closeWiz();else if(t==="ddl"){closeWiz();del(det)}
+ else if(t==="dsv"){const lt=$("lt").value.trim();save(det,{...b,id:undefined,photo:dph,place:$("sh").value,desc:$("dsc").value.trim(),lentTo:lt,lentDate:lt?$("ld").value:""});closeWiz()}
+ else if(t==="dret"){save(det,{...b,id:undefined,lentTo:"",lentDate:""});closeWiz();toast("📚 کتاب به کتابخانه برگشت")}
+ else if(t==="dcal"){const st=new Date($("ld").value||Date.now());st.setDate(st.getDate()+90);const f=x=>x.toISOString().slice(0,10).replace(/-/g,"");
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","BEGIN:VEVENT","UID:"+det+"@lib","DTSTAMP:"+new Date().toISOString().replace(/[-:]|\.\d+/g,""),"DTSTART;VALUE=DATE:"+f(st),"SUMMARY:پس گرفتن کتاب "+b.title+" از "+$("lt").value,"BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:پس گرفتن کتاب","TRIGGER;RELATED=START:PT9H","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="book-return.ics";a.click()}});
+async function ensureMic(){return true}
+let quiet=false;const LSB="lib_backup_v1";
+async function saveFile(name,data,type){try{const d=window.claude&&await claude.use("downloads");if(!d)throw 0;await d.save({filename:name,data})}catch(e){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;a.click()}}
+$("bk").onclick=()=>saveFile("library-backup-"+new Date().toISOString().slice(0,10)+".json",JSON.stringify({v:1,books:books.map(({id,...r})=>r)}),"application/json");
+$("im").onclick=()=>$("imf").click();
+function parseCSV(t){t=t.replace(/^\ufeff/,"");const R=[];let r=[],c="",q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}else if(ch==='"')q=true;else if(ch===","){r.push(c);c=""}else if(ch==="\n"){r.push(c);R.push(r);r=[];c=""}else if(ch!=="\r")c+=ch}if(c||r.length){r.push(c);R.push(r)}return R}
+async function importRows(rows){if(ro)return toast("نسخه اشتراکی فقط‌خواندنی است");
+ const key=b=>((b.title||"")+"|"+(b.author||"")).trim(),have=new Set(books.map(key));let add=0,skip=0;quiet=true;
+ for(const b of rows){if(!b.title||have.has(key(b))){skip++;continue}have.add(key(b));await save(null,b);add++}
+ quiet=false;toast(`✔ ${fa(add)} کتاب اضافه شد، ${fa(skip)} تکراری نادیده گرفته شد؛ چیزی پاک نشد`)}
+$("imf").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;const t=await f.text();let rows=[];
+ try{if(/\.json$/i.test(f.name)||t.trim()[0]==="{"||t.trim()[0]==="["){const j=JSON.parse(t);rows=(Array.isArray(j)?j:j.books||[])}
+ else{const R=parseCSV(t),H={"نام کتاب":"title","نویسنده":"author","مترجم":"translator","انتشارات":"publisher","ژانر":"genre","جای کتاب":"place"},hd=(R[0]||[]).map(h=>H[h.trim()]);
+  rows=R.slice(1).filter(r=>r.some(x=>x.trim())).map(r=>{const o={};hd.forEach((k,i)=>{if(k)o[k]=(r[i]||"").trim()});return o})}}
+ catch(err){return toast("فایل قابل خواندن نیست")}
+ await importRows(rows.map(({id,...r})=>r))};
+function mirror(){if(books.length){try{localStorage.setItem(LSB,JSON.stringify(books))}catch(e){try{localStorage.setItem(LSB,JSON.stringify(books.map(({photo,...r})=>r)))}catch(e2){}}return}
+ setTimeout(()=>{if(books.length||document.getElementById("rb"))return;let m=[];try{m=JSON.parse(localStorage.getItem(LSB)||"[]")}catch(e){}if(!m.length)return;
+  const bn=document.createElement("div");bn.id="rb";bn.className="al on";bn.innerHTML=`💾 یک نسخه پشتیبان با ${fa(m.length)} کتاب روی این دستگاه پیدا شد. <button class="btn" id="rbb" style="margin-right:10px;padding:8px 16px">بازیابی</button>`;
+  $("al").after(bn);$("rbb").onclick=async()=>{bn.remove();await importRows(m.map(({id,...r})=>r))}},2500)}
+const MAIL={service:"",template:"",key:""}; // تنظیمات EmailJS (برای ارسال خودکار) — راهنما در پاسخ
+const LSE="lib_email",LSS="lib_last_sent";let gate=false;
+const okMail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+const getMail=()=>{try{return localStorage.getItem(LSE)||""}catch(e){return ""}};
+function gateBox(){gate=true;$("box").innerHTML=`<h2 style="margin-top:0">📚 به کتابخانه من خوش آمدید</h2><p style="color:var(--mut);line-height:1.9;font-size:14px">ایمیل خود را وارد کنید تا نسخه پشتیبان کتاب‌هایتان به همین ایمیل ارسال شود. ایمیل روی همین دستگاه ذخیره می‌شود و فقط برای ارسال پشتیبان استفاده می‌شود.</p><input id="em" type="email" inputmode="email" autocomplete="email" dir="ltr" style="width:100%" placeholder="you@example.com"><div class="row"><button class="btn" id="emg" style="width:100%">ادامه</button></div>`;$("md").classList.add("on");
+ const go=()=>{const v=$("em").value.trim();if(!okMail(v)){$("em").classList.add("shake");setTimeout(()=>$("em").classList.remove("shake"),400);return}try{localStorage.setItem(LSE,v)}catch(e){}gate=false;closeWiz();toast("✔ ایمیل ذخیره شد")};$("emg").onclick=go;$("em").onkeydown=e=>{if(e.key==="Enter")go()}}
+function mailSheet(){$("box").innerHTML=`<h2 style="margin-top:0">✉ ارسال پشتیبان</h2><label style="font-size:13px;color:var(--mut)">ایمیل گیرنده</label><input id="em" type="email" inputmode="email" dir="ltr" style="width:100%;margin-top:6px" value="${esc(getMail())}"><div class="row" style="flex-wrap:wrap"><button class="btn g" id="px">انصراف</button><button class="btn g" id="pr">بازیابی از متن ایمیل</button><button class="btn" id="ps">ذخیره و ارسال</button></div>`;$("md").classList.add("on");
+ $("px").onclick=closeWiz;$("ps").onclick=()=>{const v=$("em").value.trim();if(!okMail(v))return toast("ایمیل معتبر نیست");try{localStorage.setItem(LSE,v)}catch(e){}closeWiz();sendBackup()};$("pr").onclick=pasteSheet}
+function pasteSheet(){$("box").innerHTML=`<h2 style="margin-top:0">⬆ بازیابی از ایمیل</h2><p style="font-size:13.5px;color:var(--mut);line-height:1.8">بخش «داده برای بازیابی» را از ایمیل کپی کنید و اینجا بچسبانید. کتاب‌های موجود پاک نمی‌شوند.</p><textarea id="pt" rows="6" dir="ltr" style="width:100%"></textarea><div class="row"><button class="btn g" id="px">انصراف</button><button class="btn" id="pg">بازیابی</button></div>`;
+ $("px").onclick=closeWiz;$("pg").onclick=async()=>{const m=$("pt").value.match(/\{[\s\S]*\}/);if(!m)return toast("متن معتبر نیست");try{const j=JSON.parse(m[0]);closeWiz();await importRows((j.books||[]).map(({id,...r})=>r))}catch(e){toast("متن معتبر نیست")}}}
+async function sendBackup(silent){
+ const to=getMail();if(!okMail(to)){if(!silent)mailSheet();return}
+ if(!books.length){if(!silent)toast("هنوز کتابی ثبت نشده");return}
+ const rows=books.map(({id,photo,...r})=>r),date=new Date().toISOString().slice(0,10);
+ const lines=rows.map((b,i)=>`${i+1}. ${b.title||""} | ${b.author||""} | ${b.translator||""} | ${b.publisher||""} | ${b.genre||""} | ${b.place||""}`).join("\n");
+ const json=JSON.stringify({v:1,books:rows});
+ const text=`کتابخانه من — ${date}\nتعداد کتاب‌ها: ${rows.length}\n\n${lines}\n\n--- داده برای بازیابی ---\n${json}`;
+ if(MAIL.service&&MAIL.template&&MAIL.key){
+  try{const r=await fetch("https://api.emailjs.com/api/v1.0/email/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({service_id:MAIL.service,template_id:MAIL.template,user_id:MAIL.key,template_params:{to_email:to,subject:"پشتیبان کتابخانه من — "+date,message:'<pre style="white-space:pre-wrap;font-family:inherit">'+esc(text)+"</pre>"}})});
+   if(!r.ok)throw 0;try{localStorage.setItem(LSS,String(Date.now()))}catch(e){}toast("✔ پشتیبان به "+to+" ارسال شد");return}catch(e){if(silent)return;toast("ارسال خودکار ناموفق بود؛ روش دستی استفاده می‌شود")}
+ }
+ if(silent)return;
+ const fn=`library-backup-${date}.json`;
+ try{const file=new File([json],fn,{type:"application/json"});if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:"پشتیبان کتابخانه من",text:"پشتیبان کتابخانه من — "+date});try{localStorage.setItem(LSS,String(Date.now()))}catch(e){}return}}catch(e){if(e&&e.name==="AbortError")return}
+ await saveFile(fn,json,"application/json");
+ location.href="mailto:"+to+"?subject="+encodeURIComponent("پشتیبان کتابخانه من — "+date)+"&body="+encodeURIComponent(rows.length+" کتاب\nفایل پشتیبان دانلود شد؛ آن را به این ایمیل پیوست کنید.")}
+$("mail").onclick=()=>sendBackup();
+let advT=null;
+function normFa(t){return String(t||"").replace(/ي/g,"ی").replace(/ك/g,"ک").replace(/[\u064B-\u065F\u0670]/g,"").replace(/[.،؟!,؛]/g,"").replace(/\s+/g," ").trim()}
+function lev(a,b){const m=[];for(let i=0;i<=a.length;i++){m[i]=[i];}for(let j=1;j<=b.length;j++)m[0][j]=j;for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return m[a.length][b.length]}
+function snap(k,t){const pool=new Set((F.find(f=>f.k===k)||{}).chips||[]);books.forEach(b=>b[k]&&pool.add(b[k]));let best=t,sc=0;pool.forEach(v=>{const n=normFa(v),m=Math.max(n.length,t.length);if(!m)return;const r=1-lev(n,t)/m;if(r>sc){sc=r;best=v}});return sc>=.8?best:t}
+$("box").addEventListener("input",()=>clearTimeout(advT));
+$("box").addEventListener("focusin",e=>{if(e.target.id==="in")clearTimeout(advT)});
+$("box").addEventListener("click",e=>{const a=e.target.dataset&&e.target.dataset.alt;if(a&&cur){clearTimeout(advT);$("in").value=a;nxt()}});
+$("add").onclick=()=>openWiz();
+$("fab").onclick=()=>openWiz();
+$("s").oninput=e=>{q=e.target.value;render()};
+$("chips").onclick=e=>{const c=e.target.closest(".chip");if(c){gf=c.dataset.g;render()}};
+$("grid").onclick=e=>{const a=e.target.closest("[data-a]");if(!a)return;const id=a.closest(".card").dataset.id,b=books.find(x=>x.id===id);
+ if(a.dataset.a==="v")openDet(id);else if(a.dataset.a==="d")del(id);else if(a.dataset.a==="e")openWiz(b);else openDet(id)};
+$("grid").onpointermove=e=>{const c=e.target.closest(".card");if(!c||e.pointerType==="touch")return;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.style.setProperty("--mx",x*100+"%");c.style.setProperty("--my",y*100+"%");c.firstElementChild.style.transform=`rotateY(${(x-.5)*-8}deg) rotateX(${(y-.5)*6}deg)`};
+$("grid").onmouseout=e=>{const c=e.target.closest(".card");if(c&&!c.contains(e.relatedTarget))c.firstElementChild.style.transform=""};
+$("md").onclick=e=>{if(e.target===$("md")&&!gate)closeWiz()};
+$("box").onclick=e=>{const t=e.target;if(t.dataset.c){$("in").value=t.dataset.c;nxt()}
+ else if(t.id==="mic"){if(FR||!SR)dictHint($("in"));else if(stickyOn)stickyStop();else stickyStart()}else if(t.id==="tk"){if(FR||IOS||!SR){toast("حالت گفتگو روی آیفون پشتیبانی نمی‌شود؛ از میکروفون کیبورد استفاده کنید");dictHint($("in"));return}talk=!talk;if(talk){primeMic().then(o=>{if(o)wiz();else talk=false})}else{stopVoice();t.classList.remove("on")}}else if(t.id==="nx"){stopVoice();nxt()}else if(t.id==="x")closeWiz();else if(t.id==="pv"){cur.d[F[cur.i].k]=$("in").value.trim();cur.i--;wiz()}};
+$("box").onkeydown=e=>{if(e.key==="Enter"&&e.target.id==="in"){e.preventDefault();nxt()}};
+document.onkeydown=e=>{if(e.key==="Escape"&&cur)closeWiz()};
+$("exp").onclick=async()=>{
+ const H=["نام کتاب","نویسنده","مترجم","انتشارات","ژانر","جای کتاب"],ks=["title","author","translator","publisher","genre","place"];
+ const csv="\ufeff"+[H,...books.map(b=>ks.map(k=>b[k]||""))].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
+ try{const d=window.claude&&await claude.use("downloads");if(!d)throw 0;await d.save({filename:"library.csv",data:csv})}catch(e){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));a.download="library.csv";a.click()}
+};
+try{const s=localStorage.getItem(LS);if(s)books=JSON.parse(s)}catch(e){}
+const hm=location.hash.match(/^#d=(.+)$/);
+if(hm){try{const sh=JSON.parse(decodeURIComponent(escape(atob(hm[1]))));books=sh.map((b,i)=>({...b,id:"s"+i}));ro=true;
+ const bn=document.createElement("div");bn.style.cssText="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 16px;margin-bottom:16px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap";
+ bn.innerHTML='<span>📖 این یک نسخه اشتراکی (فقط مشاهده) است</span><button class="btn" id="cp">افزودن به کتابخانه من</button>';
+ document.querySelector(".wrap").prepend(bn);
+ $("cp").onclick=()=>{let mine=[];try{mine=JSON.parse(localStorage.getItem(LS)||"[]")}catch(e){}localStorage.setItem(LS,JSON.stringify([...books.map(b=>({...b,id:"l"+Math.random().toString(36).slice(2),ts:Date.now()})),...mine]));location.href=location.href.split("#")[0]}}catch(e){}}
+render();
+if(!ro)(async()=>{
+ try{
+  const db=window.claude&&await claude.use("db");if(!db)return;
+  col=db.collection("books");books=[];
+  col.onSnapshot(snap=>{books=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.ts||0)-(a.ts||0));render();mirror()},()=>{col=null});
+ }catch(e){col=null}
+})();
+if(!ro&&!getMail())setTimeout(gateBox,350);
+setTimeout(()=>{try{if(MAIL.service&&!ro&&okMail(getMail())&&books.length&&Date.now()-(+localStorage.getItem(LSS)||0)>6048e5)sendBackup(true)}catch(e){}},4000);
+</script>
+</body>
+</html>
