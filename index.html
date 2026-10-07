@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#7c3aed">
+<title>Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&family=Inter:wght@400;600;800&family=Noto+Sans+SC:wght@400;600&family=Noto+Sans+JP:wght@400;600&family=Noto+Kufi+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root,:root[data-theme="light"]{
+  --bg-base:#f7f5ff;--bg-mesh-1:rgba(124,58,237,.18);--bg-mesh-2:rgba(236,72,153,.15);
+  --bg-mesh-3:rgba(6,182,212,.13);--bg-mesh-4:rgba(251,191,36,.10);
+  --card:rgba(255,255,255,.72);--card-solid:#fff;--card-elev:rgba(255,255,255,.9);
+  --ink:#0f0d1f;--ink-soft:#2d2a45;--mut:#6b6880;
+  --line:rgba(20,15,60,.08);--line-strong:rgba(20,15,60,.16);
+  --acc:#7c3aed;--acc2:#ec4899;--acc3:#06b6d4;--ok:#10b981;--err:#ef4444;
+  --sh-sm:0 2px 8px rgba(30,20,100,.06);--sh:0 12px 32px rgba(30,20,100,.10);
+  --sh-lg:0 28px 70px rgba(124,58,237,.22);
+  --input-bg:#fff;--overlay-bg:rgba(10,5,30,.45);
+}
+:root[data-theme="dark"]{
+  --bg-base:#06040d;--bg-mesh-1:rgba(124,58,237,.38);--bg-mesh-2:rgba(236,72,153,.32);
+  --bg-mesh-3:rgba(6,182,212,.26);--bg-mesh-4:rgba(251,191,36,.12);
+  --card:rgba(24,20,44,.66);--card-solid:#100e22;--card-elev:rgba(30,25,55,.9);
+  --ink:#f5f3ff;--ink-soft:#ddd9f5;--mut:#9b97b8;
+  --line:rgba(255,255,255,.08);--line-strong:rgba(255,255,255,.18);
+  --acc:#a78bfa;--acc2:#f472b6;--acc3:#22d3ee;--ok:#34d399;--err:#f87171;
+  --sh-sm:0 2px 8px rgba(0,0,0,.5);--sh:0 12px 32px rgba(0,0,0,.55);
+  --sh-lg:0 28px 70px rgba(124,58,237,.5);
+  --input-bg:#1a1730;--overlay-bg:rgba(0,0,0,.7);
+}
+@media(prefers-color-scheme:dark){
+  :root[data-theme="auto"]{
+    --bg-base:#06040d;--bg-mesh-1:rgba(124,58,237,.38);--bg-mesh-2:rgba(236,72,153,.32);
+    --bg-mesh-3:rgba(6,182,212,.26);--bg-mesh-4:rgba(251,191,36,.12);
+    --card:rgba(24,20,44,.66);--card-solid:#100e22;--card-elev:rgba(30,25,55,.9);
+    --ink:#f5f3ff;--ink-soft:#ddd9f5;--mut:#9b97b8;
+    --line:rgba(255,255,255,.08);--line-strong:rgba(255,255,255,.18);
+    --acc:#a78bfa;--acc2:#f472b6;--acc3:#22d3ee;--ok:#34d399;--err:#f87171;
+    --sh-sm:0 2px 8px rgba(0,0,0,.5);--sh:0 12px 32px rgba(0,0,0,.55);
+    --sh-lg:0 28px 70px rgba(124,58,237,.5);
+    --input-bg:#1a1730;--overlay-bg:rgba(0,0,0,.7);
+  }
+}
+html,body{margin:0;padding:0;min-height:100%}
+body{background:var(--bg-base);color:var(--ink);font-family:Vazirmatn,Tahoma,system-ui,-apple-system,sans-serif;min-height:100vh;overflow-x:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);-webkit-font-smoothing:antialiased;transition:background-color .35s ease,color .35s ease}
+body[lang=zh]{font-family:'Noto Sans SC',Vazirmatn,Tahoma,sans-serif}
+body[lang=ja]{font-family:'Noto Sans JP',Vazirmatn,Tahoma,sans-serif}
+body[lang=ar],body[lang=ckb]{font-family:'Noto Kufi Arabic',Vazirmatn,Tahoma,sans-serif}
+.mesh{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 15% -10%,var(--bg-mesh-1),transparent 55%),radial-gradient(ellipse 55% 45% at 90% 10%,var(--bg-mesh-2),transparent 55%),radial-gradient(ellipse 65% 55% at 50% 105%,var(--bg-mesh-3),transparent 60%),radial-gradient(ellipse 40% 35% at 95% 85%,var(--bg-mesh-4),transparent 55%),var(--bg-base);transition:background .5s ease}
+.mesh::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");opacity:.05;mix-blend-mode:overlay}
+.mesh::after{content:"";position:absolute;inset:0;background:radial-gradient(circle 40vmax at var(--mx,50%) var(--my,50%),var(--bg-mesh-1),transparent 70%);opacity:.5;transition:opacity 1s}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 20px 110px;position:relative}
+.topbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;background:var(--card);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid var(--line);border-radius:18px;padding:10px 16px;box-shadow:var(--sh-sm);margin-bottom:22px;position:sticky;top:calc(10px + env(safe-area-inset-top));z-index:40;transition:background .35s,border-color .35s}
+.topbar-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.topbar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lang-wrap{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--mut)}
+#langSel{font:inherit;background:var(--input-bg);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:9px 14px;cursor:pointer;font-size:14px;min-width:180px;transition:border-color .2s,box-shadow .2s}
+#langSel:hover{border-color:var(--acc)}
+#langSel:focus{border-color:var(--acc);box-shadow:0 0 0 4px rgba(124,58,237,.15);outline:none}
+.theme-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--input-bg);color:var(--ink);cursor:pointer;font-size:18px;transition:transform .2s,border-color .2s}
+.theme-btn:hover{transform:translateY(-2px);border-color:var(--acc)}
+.theme-btn:active{transform:scale(.94)}
+#dtb{font-size:12px;color:var(--mut);text-align:end;line-height:1.5;white-space:nowrap}
+#dtb b{color:var(--ink);font-weight:600;display:block;font-size:13px}
+.hero{margin-bottom:26px;position:relative}
+h1{margin:0 0 8px;font-size:clamp(30px,5.5vw,52px);font-weight:800;line-height:1.1;letter-spacing:-.02em;background:linear-gradient(120deg,var(--acc),var(--acc2),var(--acc3),var(--acc));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 9s linear infinite}
+@keyframes shine{to{background-position:-300% 0}}
+.sub{color:var(--mut);margin:0;font-size:14.5px;font-weight:400;max-width:600px;line-height:1.6}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{font:inherit;font-weight:600;font-size:14px;border:0;cursor:pointer;border-radius:12px;padding:11px 18px;color:#fff;background:linear-gradient(135deg,var(--acc),var(--acc2));box-shadow:0 6px 20px rgba(124,58,237,.32);transition:transform .15s cubic-bezier(.2,.9,.3,1.2),box-shadow .25s;min-height:44px;position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);transform:translateX(-150%);transition:transform .6s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(124,58,237,.45)}
+.btn:hover::before{transform:translateX(150%)}
+.btn:active{transform:scale(.97)}
+.btn.g{background:var(--card);color:var(--ink);box-shadow:var(--sh-sm);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.btn.g:hover{border-color:var(--acc);background:var(--card-solid);box-shadow:var(--sh)}
+.btn.sm{padding:8px 14px;font-size:13px;min-height:38px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0}
+.st{background:var(--card);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid var(--line);border-radius:18px;padding:16px 18px;box-shadow:var(--sh-sm);position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.2,.9,.3,1.2),box-shadow .3s,background .35s}
+.st::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--acc),var(--acc2),var(--acc3));border-radius:3px}
+.st:hover{transform:translateY(-4px);box-shadow:var(--sh)}
+.st b{display:block;font-size:26px;font-weight:800;line-height:1.1;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.st span{color:var(--mut);font-size:12.5px;display:block;margin-top:2px}
+.search-bar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.iw{position:relative;flex:1;min-width:220px}
+.iw input{font:inherit;color:var(--ink);background:var(--card);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:18px;padding:15px 22px;padding-inline-end:60px;width:100%;outline:none;font-size:14.5px;transition:border-color .2s,box-shadow .2s,background .2s}
+.iw input:focus{border-color:var(--acc);box-shadow:0 0 0 4px rgba(124,58,237,.14),var(--sh-sm);background:var(--card-solid)}
+.mic{position:absolute;inset-inline-end:7px;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;font-size:18px;color:#fff;background:linear-gradient(135deg,var(--acc),var(--acc2));box-shadow:0 6px 18px rgba(124,58,237,.42);transition:transform .2s,box-shadow .25s;display:flex;align-items:center;justify-content:center}
+.mic:hover{transform:translateY(-50%) scale(1.08)}
+.mic.on{animation:pulseRing 1.4s cubic-bezier(.4,0,.6,1) infinite;background:linear-gradient(135deg,#ef4444,#ec4899)}
+@keyframes pulseRing{0%{box-shadow:0 6px 18px rgba(124,58,237,.42),0 0 0 0 rgba(236,72,153,.65)}70%{box-shadow:0 6px 18px rgba(124,58,237,.42),0 0 0 20px rgba(236,72,153,0)}100%{box-shadow:0 6px 18px rgba(124,58,237,.42),0 0 0 0 rgba(236,72,153,0)}}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.chip{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 16px;cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .18s,border-color .2s,background .2s}
+.chip:hover{transform:translateY(-1px);border-color:var(--acc)}
+.chip.on{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(124,58,237,.35)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:var(--card);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid var(--line);border-radius:26px;padding:16px;box-shadow:var(--sh-sm);position:relative;transition:transform .4s cubic-bezier(.2,.9,.3,1.2),box-shadow .3s,border-color .3s,background .35s;animation:cardIn .55s cubic-bezier(.2,.9,.3,1.1) both;overflow:hidden}
+@keyframes cardIn{from{opacity:0;transform:translateY(24px) scale(.95)}}
+.card::after{content:"";position:absolute;inset:0;border-radius:26px;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(124,58,237,.1),transparent 40%);opacity:0;transition:opacity .35s;pointer-events:none}
+.card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg);border-color:rgba(124,58,237,.28)}
+.card:hover::after{opacity:1}
+.ci{display:flex;gap:14px;position:relative;z-index:1}
+.cv{flex:0 0 88px;height:128px;border-radius:6px 12px 12px 6px;padding:10px 8px;color:#fff;font-weight:800;font-size:13px;line-height:1.4;display:flex;align-items:flex-start;overflow:hidden;position:relative;overflow-wrap:anywhere;cursor:pointer;box-shadow:inset 6px 0 0 rgba(0,0,0,.16),inset -2px 0 0 rgba(255,255,255,.14),-6px 10px 24px rgba(0,0,0,.2);transition:transform .4s cubic-bezier(.2,.9,.3,1.2)}
+.card:hover .cv{transform:rotateY(-6deg) translateX(-3px)}
+.cv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.inf{flex:1;min-width:0;display:flex;flex-direction:column}
+.inf h3{margin:2px 0 8px;font-size:15.5px;font-weight:800;line-height:1.35;overflow-wrap:anywhere;cursor:pointer;color:var(--ink)}
+.inf p{margin:3px 0;font-size:12.5px;color:var(--mut);overflow-wrap:anywhere;line-height:1.5}
+.inf p b{color:var(--ink);font-weight:600}
+.tag{display:inline-block;margin-top:8px;font-size:11px;font-weight:600;padding:3px 12px;border-radius:999px;color:#fff;width:fit-content;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.loc{margin-top:10px;font-size:12.5px;border:1px dashed var(--line-strong);border-radius:10px;padding:8px 12px;cursor:pointer;background:transparent;color:var(--mut);width:100%;text-align:start;font-family:inherit;transition:border-color .2s,color .2s,background .2s}
+.loc:hover{border-color:var(--acc);color:var(--acc)}
+.loc.ok{border-style:solid;color:var(--ink);border-color:rgba(16,185,129,.45);background:rgba(16,185,129,.08)}
+.acts{position:absolute;top:10px;inset-inline-end:10px;display:flex;gap:5px;z-index:3;opacity:0;transition:opacity .22s}
+.card:hover .acts,.card:focus-within .acts{opacity:1}
+.acts button{border:0;background:var(--card-solid);color:var(--ink);width:34px;height:34px;border-radius:10px;font-size:14px;cursor:pointer;box-shadow:var(--sh-sm);transition:transform .18s,background .2s}
+.acts button:hover{transform:scale(1.12);background:rgba(124,58,237,.12)}
+.empty{text-align:center;padding:80px 20px;color:var(--mut);background:var(--card);border:1px dashed var(--line-strong);border-radius:26px;backdrop-filter:blur(10px)}
+.empty .em{font-size:70px;margin-bottom:14px;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(3deg)}}
+.empty h3{margin:0 0 8px;color:var(--ink);font-size:17px}
+.empty p{margin:0;font-size:13.5px}
+.md{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;background:var(--overlay-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:20px}
+.md.on{display:flex;animation:mdIn .3s}
+@keyframes mdIn{from{opacity:0}}
+.box{width:min(540px,100%);background:var(--card-solid);border:1px solid var(--line);border-radius:26px;padding:28px;box-shadow:0 40px 90px rgba(0,0,0,.4);max-height:90vh;overflow-y:auto;animation:boxIn .45s cubic-bezier(.2,.9,.3,1.15);position:relative;color:var(--ink)}
+.box::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--acc),var(--acc2),var(--acc3));border-radius:26px 26px 0 0}
+@keyframes boxIn{from{opacity:0;transform:translateY(30px) scale(.94)}}
+.box h2{margin:0 0 16px;font-size:20px;font-weight:800;color:var(--ink)}
+.box h3{margin:18px 0 10px;font-size:15px;font-weight:700;color:var(--ink)}
+.pg{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:20px}
+.pg i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--acc),var(--acc2),var(--acc3));background-size:200% 100%;animation:shine 3s linear infinite;transition:width .5s cubic-bezier(.2,.9,.3,1.1)}
+.q small{color:var(--mut);font-size:12.5px;font-weight:500}
+.q h2{margin:6px 0 14px;font-size:19px;line-height:1.4}
+.q input{font:inherit;color:var(--ink);background:var(--input-bg);font-size:16px;border:1px solid var(--line);border-radius:12px;padding:14px 18px;padding-inline-end:56px;width:100%;outline:none;transition:border-color .2s,box-shadow .2s}
+.q input:focus{border-color:var(--acc);box-shadow:0 0 0 4px rgba(124,58,237,.14)}
+.row{display:flex;gap:10px;justify-content:space-between;margin-top:22px;flex-wrap:wrap}
+.fm-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.fm-row{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;transition:border-color .2s,background .2s}
+.fm-row:hover{border-color:var(--acc)}
+.fm-row.hidden{opacity:.5}
+.fm-row .fm-handle{color:var(--mut);font-size:14px;cursor:default;user-select:none}
+.fm-row .fm-name{flex:1;font-size:13.5px;font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fm-row .fm-name small{display:block;font-size:11px;color:var(--mut);font-weight:400;margin-top:2px}
+.fm-row .fm-badge{font-size:10px;padding:2px 8px;border-radius:99px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-weight:600;display:inline-block;margin-inline-end:4px}
+.fm-row .fm-badge.req{background:linear-gradient(135deg,#ef4444,#f59e0b)}
+.fm-row .fm-badge.custom{background:linear-gradient(135deg,var(--acc3),var(--ok))}
+.fm-btn{border:0;background:transparent;color:var(--ink);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}
+.fm-btn:hover{background:rgba(124,58,237,.14);color:var(--acc)}
+.fm-btn.danger:hover{background:rgba(239,68,68,.14);color:var(--err)}
+.fm-btn:disabled{opacity:.3;cursor:not-allowed}
+.fm-add{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px;border:1px dashed var(--line-strong);border-radius:12px;background:var(--card)}
+.fm-add input{flex:1;min-width:120px;font-size:13.5px;padding:9px 12px}
+.voice-panel{background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(236,72,153,.06),rgba(6,182,212,.06));border:1px solid rgba(124,58,237,.22);border-radius:18px;padding:18px;margin-bottom:18px}
+.voice-panel h4{margin:0 0 8px;font-size:14.5px;font-weight:700;color:var(--acc)}
+.voice-transcript{min-height:64px;background:var(--input-bg);border-radius:12px;padding:12px 16px;font-size:14.5px;line-height:1.75;color:var(--ink);border:1px solid var(--line);margin-bottom:12px;font-family:inherit;max-height:140px;overflow-y:auto}
+.voice-transcript:empty::before{content:attr(data-ph);color:var(--mut);font-style:italic;font-size:13.5px}
+.voice-waves{display:flex;align-items:center;justify-content:center;gap:3px;height:44px;margin:8px 0}
+.voice-waves span{display:block;width:4px;border-radius:3px;height:8px;background:linear-gradient(180deg,var(--acc),var(--acc2))}
+.voice-waves.on span{animation:wave 1.1s ease-in-out infinite}
+.voice-waves span:nth-child(1){animation-delay:0s}.voice-waves span:nth-child(2){animation-delay:.1s}.voice-waves span:nth-child(3){animation-delay:.2s}.voice-waves span:nth-child(4){animation-delay:.3s}.voice-waves span:nth-child(5){animation-delay:.4s}.voice-waves span:nth-child(6){animation-delay:.3s}.voice-waves span:nth-child(7){animation-delay:.2s}.voice-waves span:nth-child(8){animation-delay:.1s}.voice-waves span:nth-child(9){animation-delay:0s}
+@keyframes wave{0%,100%{height:8px}50%{height:38px}}
+.toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#0f0d1f,#1e1a3a);color:#fff;padding:12px 22px;border-radius:999px;z-index:200;font-size:13.5px;font-weight:500;box-shadow:0 14px 34px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.06);max-width:90vw;text-align:center;animation:toastIn .4s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px) scale(.9)}}
+#warn{display:none;background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(251,191,36,.06));border:1px solid rgba(251,191,36,.4);color:var(--ink);border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:13px;align-items:center;gap:12px}
+#warn.on{display:flex}
+#warn button{border:0;background:transparent;color:var(--mut);cursor:pointer;font-size:18px;padding:2px 8px;border-radius:6px}
+.fab{display:none;position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));inset-inline-end:20px;z-index:30;border-radius:999px;font-size:16px;min-height:56px;padding:0 26px;box-shadow:0 14px 34px rgba(124,58,237,.5)}
+@media(max-width:640px){
+  .wrap{padding:14px 14px 110px}
+  .topbar{padding:10px;gap:8px}
+  .topbar-left{flex:1 1 100%;gap:8px}
+  #langSel{min-width:0;flex:1;font-size:13px;padding:8px 10px}
+  .topbar-right{flex:1 1 100%;justify-content:space-between}
+  #dtb{font-size:11px;text-align:end;flex:1}
+  .hero h1{font-size:28px}
+  .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .actions .btn{font-size:12.5px;padding:10px 8px;min-height:44px}
+  .stats{grid-template-columns:1fr 1fr;gap:8px}
+  .grid{grid-template-columns:1fr;gap:12px}
+  #addBtn{display:none}
+  .fab{display:inline-flex}
+  .md{padding:0;align-items:flex-end}
+  .box{border-radius:26px 26px 0 0;max-height:92vh;padding:22px 18px calc(22px + env(safe-area-inset-bottom))}
+  .acts{opacity:1}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<div class="mesh" id="mesh"></div>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <label class="lang-wrap">
+        <span id="langLbl">زبان:</span>
+        <select id="langSel"></select>
+      </label>
+    </div>
+    <div class="topbar-right">
+      <div id="dtb">—</div>
+      <button class="theme-btn" id="themeBtn" title="Theme">🌗</button>
+    </div>
+  </div>
+
+  <div id="warn">
+    <span style="flex:1" id="warnTxt"></span>
+    <button id="warnX">✕</button>
+  </div>
+
+  <header class="hero">
+    <h1 id="h1">📚 کتابخانه من</h1>
+    <p class="sub" id="sub">فهرست کتاب‌ها</p>
+    <div class="actions">
+      <button class="btn g" id="bkBtn">💾 <span id="bkLbl">پشتیبان</span></button>
+      <button class="btn g" id="imBtn">⬆ <span id="imLbl">ورود فایل</span></button>
+      <input type="file" id="imf" accept=".json,.csv,text/csv,application/json" hidden>
+      <button class="btn g" id="expBtn">⬇ <span id="expLbl">خروجی CSV</span></button>
+      <button class="btn" id="addBtn">＋ <span id="addLbl">افزودن کتاب</span></button>
+    </div>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="search-bar">
+    <div class="iw">
+      <input id="s" placeholder="جستجو…">
+      <button class="mic" id="smic" type="button" title="جستجوی صوتی">🎤</button>
+    </div>
+  </div>
+
+  <div class="chips" id="chips"></div>
+  <div class="grid" id="grid"></div>
+
+  <p dir="ltr" style="text-align:center;color:var(--mut);font-size:11px;margin-top:30px">v2026.10.07-full</p>
+</div>
+
+<button class="btn fab" id="fab">＋ <span id="fabLbl">افزودن</span></button>
+<div class="md" id="md"><div class="box" id="box"></div></div>
+
+<script>
+/* ============================================================
+   Safe storage
+============================================================ */
+var __MEM = {};
+var __storageOK = (function(){
+  try { localStorage.setItem("__t","1"); localStorage.removeItem("__t"); return true; }
+  catch(e) { return false; }
+})();
+var __warnDismissed = false;
+try { __warnDismissed = localStorage.getItem("lib_warn_dismissed") === "1"; } catch(e) {}
+var store = {
+  getItem: function(k){
+    try { if (__storageOK) return localStorage.getItem(k); } catch(e) {}
+    return __MEM[k] !== undefined ? __MEM[k] : null;
+  },
+  setItem: function(k, v){
+    try { if (__storageOK) { localStorage.setItem(k, v); return; } } catch(e) {}
+    __MEM[k] = String(v);
+  }
+};
+
+window.addEventListener("error", function(e){
+  var d = document.getElementById("err");
+  if (!d) {
+    d = document.createElement("div");
+    d.id = "err";
+    d.style.cssText = "position:fixed;top:0;left:0;right:0;background:#b00020;color:#fff;padding:10px 14px;z-index:9999;font:12px/1.5 monospace;direction:ltr;word-break:break-all;max-height:40vh;overflow:auto";
+    document.body.appendChild(d);
+  }
+  d.textContent = "Error: " + e.message + " (line " + (e.lineno||"?") + ")";
+});
+
+/* ============================================================
+   i18n
+============================================================ */
+var I18N = {
+fa:{_name:"🇮🇷 فارسی",_locale:"fa-IR",_dir:"rtl",
+ h1:"📚 کتابخانه من",sub:"فهرست کتاب‌ها، نویسنده‌ها و جای هر کتاب در قفسه",
+ langLbl:"زبان:",addBook:"افزودن کتاب",backup:"پشتیبان",importFile:"ورود فایل",exportCsv:"خروجی CSV",
+ searchPh:"🔍 جستجو…",statTotal:"کل کتاب‌ها",statAuthors:"نویسنده",statGenres:"ژانر",statNoPlace:"بدون جای ثبت‌شده",
+ all:"همه",noGenre:"بدون ژانر",emptyLib:"کتابخانه هنوز خالی است",emptyLibHint:"برای شروع روی «افزودن کتاب» بزنید",
+ noResult:"کتابی پیدا نشد",noResultHint:"جستجو یا فیلتر را تغییر دهید",
+ placeMissing:"📍 جای کتاب ثبت نشده",placeSet:"📍",
+ q_title:"نام کتاب چیست؟",ph_title:"مثلاً: بوف کور",q_author:"نام نویسنده کیست؟",ph_author:"مثلاً: صادق هدایت",
+ q_translator:"نام مترجم؟",ph_translator:"اگر ندارد، رد کنید",q_publisher:"نام انتشارات؟",ph_publisher:"مثلاً: نشر چشمه",
+ q_genre:"ژانر کتاب؟",ph_genre:"انتخاب یا بنویسید",q_place:"جای کتاب؟",ph_place:"مثلاً: قفسه ۲ – ردیف ۳",
+ step:"مرحله",of:"از",stepPlace:"ثبت جای کتاب",
+ prev:"→ قبلی",cancel:"انصراف",next:"بعدی ←",skip:"رد کردن ←",save:"✔ ثبت کتاب",
+ editBtn:"✎",removeBtn:"✕",deleteAsk:function(n){return "«"+n+"» حذف شود؟";},yesDelete:"بله، حذف",saved:"✔ ذخیره شد",
+ micStart:"🎤 صحبت کنید…",micStop:"میکروفون خاموش شد",micActive:"🎤 میکروفون فعال",
+ micWorking:"🎤 حالا بگویید… (بعد از سکوت خودکار ثبت می‌شود)",
+ voiceFull:"🎙 گفتگوی صوتی هوشمند",voiceFullHint:"همه اطلاعات را یک‌جا بگویید",
+ voiceTranscriptPh:"اینجا متن گفتار شما ظاهر می‌شود…",
+ voiceListening:"🎤 در حال شنیدن… بگویید",voiceProcessing:"⏳ در حال پردازش…",
+ voiceParseConfirm:"این اطلاعات استخراج شد. تأیید می‌کنید؟",voiceParseFail:"نتوانستم استخراج کنم.",
+ voiceParseOk:"✔ استخراج شد",
+ voiceExample:"مثال: بوف کور نوشته صادق هدایت ژانر رمان قفسه ۲ ردیف ۳",
+ voiceStartBtn:"🎤 شروع شنیدن",voiceStopBtn:"⏹ توقف و اعمال",voiceApplyBtn:"✔ اعمال",
+ voiceNotSupported:"این مرورگر از تشخیص صدا پشتیبانی نمی‌کند. از Chrome یا Edge استفاده کنید.",
+ micDenied:"اجازه میکروفون داده نشده — روی 🔒 کنار آدرس کلیک کنید و Allow بزنید",
+ photoNone:"هنوز عکسی نیست",photoChoose:"📷 انتخاب عکس",photoChange:"📷 تغییر عکس",
+ shelf:"🗄 قفسه",shelfChoose:"— انتخاب —",save:"ذخیره",deleteBtn:"🗑 حذف کتاب",close:"بستن",
+ importOK:function(a,s){return "✔ "+a+" اضافه، "+s+" تکراری";},importBad:"فایل نامعتبر",
+ theme:"حالت نمایش",themeAuto:"خودکار",themeLight:"روشن",themeDark:"تاریک",
+ fieldManager:"⚙ مدیریت فیلدها",fieldManagerHint:"فیلدهای پیش‌فرض را مخفی کنید یا فیلد سفارشی بسازید",
+ fieldNew:"فیلد جدید",fieldNewPh:"نام فیلد (مثلاً: سال انتشار)",fieldAdd:"افزودن",
+ fieldRequired:"الزامی",fieldCustom:"سفارشی",fieldBuiltin:"پیش‌فرض",fieldHidden:"(مخفی)",
+ fieldDeleteAsk:function(n){return "فیلد «"+n+"» حذف شود؟";},
+ fieldExists:"این نام قبلاً استفاده شده",fieldAdded:"✔ فیلد اضافه شد",fieldRemoved:"✔ فیلد حذف شد",
+ fieldUp:"بالا",fieldDown:"پایین",fieldToggle:"نمایش/مخفی",
+ genres:["رمان","شعر","تاریخ","فلسفه","روانشناسی","علمی","اقتصاد","کودک","مذهبی","دیگر"]},
+en:{_name:"🇬🇧 English",_locale:"en-US",_dir:"ltr",
+ h1:"📚 My Library",sub:"Your books, authors and shelf locations",
+ langLbl:"Language:",addBook:"Add Book",backup:"Backup",importFile:"Import",exportCsv:"Export CSV",
+ searchPh:"🔍 Search…",statTotal:"Total",statAuthors:"Authors",statGenres:"Genres",statNoPlace:"No shelf",
+ all:"All",noGenre:"No genre",emptyLib:"Library is empty",emptyLibHint:"Tap “Add Book” to start",
+ noResult:"No book found",noResultHint:"Try another search",
+ placeMissing:"📍 No location",placeSet:"📍",
+ q_title:"Book title?",ph_title:"e.g. The Blind Owl",q_author:"Author?",ph_author:"e.g. Sadegh Hedayat",
+ q_translator:"Translator?",ph_translator:"Leave empty if none",q_publisher:"Publisher?",ph_publisher:"e.g. Cheshmeh",
+ q_genre:"Genre?",ph_genre:"Choose or type",q_place:"Shelf location?",ph_place:"e.g. Shelf 2 — Row 3",
+ step:"Step",of:"of",stepPlace:"Shelf location",
+ prev:"← Prev",cancel:"Cancel",next:"Next →",skip:"Skip →",save:"✔ Save",
+ editBtn:"✎",removeBtn:"✕",deleteAsk:function(n){return 'Delete "'+n+'"?';},yesDelete:"Yes, delete",saved:"✔ Saved",
+ micStart:"🎤 Speak now…",micStop:"Mic off",micActive:"🎤 Mic active",
+ micWorking:"🎤 Say now… (auto-submit after silence)",
+ voiceFull:"🎙 Smart voice input",voiceFullHint:"Say all info at once",
+ voiceTranscriptPh:"Your speech appears here…",
+ voiceListening:"🎤 Listening… speak now",voiceProcessing:"⏳ Processing…",
+ voiceParseConfirm:"Extracted data. Confirm?",voiceParseFail:"Could not parse.",
+ voiceParseOk:"✔ Extracted",
+ voiceExample:"Example: The Blind Owl written by Sadegh Hedayat genre Novel shelf 2",
+ voiceStartBtn:"🎤 Start listening",voiceStopBtn:"⏹ Stop & Apply",voiceApplyBtn:"✔ Apply",
+ voiceNotSupported:"This browser doesn't support speech recognition. Use Chrome or Edge.",
+ micDenied:"Microphone permission denied — allow it in browser settings",
+ photoNone:"No photo yet",photoChoose:"📷 Choose photo",photoChange:"📷 Change photo",
+ shelf:"🗄 Shelf",shelfChoose:"— Choose —",save:"Save",deleteBtn:"🗑 Delete",close:"Close",
+ importOK:function(a,s){return "✔ "+a+" added, "+s+" skipped";},importBad:"Unreadable file",
+ theme:"Theme",themeAuto:"Auto",themeLight:"Light",themeDark:"Dark",
+ fieldManager:"⚙ Manage fields",fieldManagerHint:"Hide built-in fields or add your own custom fields",
+ fieldNew:"New field",fieldNewPh:"Field name (e.g. Year)",fieldAdd:"Add",
+ fieldRequired:"Required",fieldCustom:"Custom",fieldBuiltin:"Built-in",fieldHidden:"(hidden)",
+ fieldDeleteAsk:function(n){return 'Delete field "'+n+'"?';},
+ fieldExists:"This name is already used",fieldAdded:"✔ Field added",fieldRemoved:"✔ Field removed",
+ fieldUp:"Up",fieldDown:"Down",fieldToggle:"Show/Hide",
+ genres:["Novel","Poetry","History","Philosophy","Psychology","Science","Economics","Children","Religious","Other"]},
+de:{_name:"🇩🇪 Deutsch",_locale:"de-DE",_dir:"ltr",
+ h1:"📚 Meine Bibliothek",sub:"Bücher, Autoren und Regalplätze",
+ langLbl:"Sprache:",addBook:"Buch hinzufügen",backup:"Backup",importFile:"Import",exportCsv:"CSV",
+ searchPh:"🔍 Suche…",statTotal:"Bücher",statAuthors:"Autoren",statGenres:"Genres",statNoPlace:"Kein Regal",
+ all:"Alle",noGenre:"Kein Genre",emptyLib:"Bibliothek leer",emptyLibHint:"Tippe „Buch hinzufügen“",
+ noResult:"Kein Buch",noResultHint:"Suche ändern",
+ placeMissing:"📍 Kein Ort",placeSet:"📍",
+ q_title:"Buchtitel?",ph_title:"z. B. Die blinde Eule",q_author:"Autor?",ph_author:"z. B. Hedayat",
+ q_translator:"Übersetzer?",ph_translator:"Leer, wenn keiner",q_publisher:"Verlag?",ph_publisher:"z. B. Cheshmeh",
+ q_genre:"Genre?",ph_genre:"Wählen oder tippen",q_place:"Regalplatz?",ph_place:"z. B. Regal 2",
+ step:"Schritt",of:"von",stepPlace:"Regalplatz",prev:"← Zurück",cancel:"Abbrechen",next:"Weiter →",skip:"Skip →",save:"✔ Speichern",
+ editBtn:"✎",removeBtn:"✕",deleteAsk:function(n){return "„"+n+"“ löschen?";},yesDelete:"Ja",saved:"✔ Gespeichert",
+ micStart:"🎤 Sprich jetzt…",micStop:"Mikrofon aus",micActive:"🎤 Mikrofon an",micWorking:"🎤 Sprich jetzt…",
+ voiceFull:"🎙 Sprach-Eingabe",voiceFullHint:"Alle Infos auf einmal",
+ voiceTranscriptPh:"Hier erscheint deine Sprache…",
+ voiceListening:"🎤 Höre…",voiceProcessing:"⏳ Verarbeite…",
+ voiceParseConfirm:"Daten extrahiert. Bestätigen?",voiceParseFail:"Konnte nicht parsen.",voiceParseOk:"✔ Extrahiert",
+ voiceExample:"Beispiel: Die blinde Eule von Hedayat Genre Roman Regal 2",
+ voiceStartBtn:"🎤 Starten",voiceStopBtn:"⏹ Stopp",voiceApplyBtn:"✔ Anwenden",
+ voiceNotSupported:"Spracherkennung nicht unterstützt",micDenied:"Mikrofon verweigert",
+ photoNone:"Kein Foto",photoChoose:"📷 Foto wählen",photoChange:"📷 Foto ändern",
+ shelf:"🗄 Regal",shelfChoose:"— Wählen —",save:"Speichern",deleteBtn:"🗑 Löschen",close:"Schließen",
+ importOK:function(a,s){return "✔ "+a+" hinzu, "+s+" übersprungen";},importBad:"Unlesbar",
+ theme:"Theme",themeAuto:"Auto",themeLight:"Hell",themeDark:"Dunkel",
+ fieldManager:"⚙ Felder",fieldManagerHint:"Felder verwalten",
+ fieldNew:"Neues Feld",fieldNewPh:"Feldname",fieldAdd:"Hinzufügen",
+ fieldRequired:"Pflicht",fieldCustom:"Eigen",fieldBuiltin:"Standard",fieldHidden:"(versteckt)",
+ fieldDeleteAsk:function(n){return "Feld „"+n+"“ löschen?";},
+ fieldExists:"Name bereits vergeben",fieldAdded:"✔ Hinzugefügt",fieldRemoved:"✔ Entfernt",
+ fieldUp:"Hoch",fieldDown:"Runter",fieldToggle:"An/Aus",
+ genres:["Roman","Lyrik","Geschichte","Philosophie","Psychologie","Wissenschaft","Wirtschaft","Kinder","Religion","Sonstiges"]},
+fr:{_name:"🇫🇷 Français",_locale:"fr-FR",_dir:"ltr",
+ h1:"📚 Ma bibliothèque",sub:"Livres, auteurs et emplacements",
+ langLbl:"Langue:",addBook:"Ajouter",backup:"Sauvegarde",importFile:"Importer",exportCsv:"CSV",
+ searchPh:"🔍 Recherche…",statTotal:"Total",statAuthors:"Auteurs",statGenres:"Genres",statNoPlace:"Sans étagère",
+ all:"Tous",noGenre:"Sans genre",emptyLib:"Bibliothèque vide",emptyLibHint:"Appuyez sur Ajouter",
+ noResult:"Aucun livre",noResultHint:"Changez la recherche",
+ placeMissing:"📍 Pas d'emplacement",placeSet:"📍",
+ q_title:"Titre ?",ph_title:"ex. La Chouette aveugle",q_author:"Auteur ?",ph_author:"ex. Hedayat",
+ q_translator:"Traducteur ?",ph_translator:"Vide si aucun",q_publisher:"Éditeur ?",ph_publisher:"ex. Cheshmeh",
+ q_genre:"Genre ?",ph_genre:"Choisir ou taper",q_place:"Emplacement ?",ph_place:"ex. Étagère 2",
+ step:"Étape",of:"sur",stepPlace:"Emplacement",prev:"← Préc.",cancel:"Annuler",next:"Suiv. →",skip:"Ignorer →",save:"✔ Enregistrer",
+ editBtn:"✎",removeBtn:"✕",deleteAsk:function(n){return 'Supprimer « '+n+' » ?';},yesDelete:"Oui",saved:"✔ Enregistré",
+ micStart:"🎤 Parlez…",micStop:"Micro éteint",micActive:"🎤 Micro actif",micWorking:"🎤 Dites maintenant…",
+ voiceFull:"🎙 Entrée vocale",voiceFullHint:"Dites tout en une fois",
+ voiceTranscriptPh:"Votre voix apparaît ici…",
+ voiceListening:"🎤 Écoute…",voiceProcessing:"⏳ Traitement…",
+ voiceParseConfirm:"Données extraites. Confirmer ?",voiceParseFail:"Échec d'analyse.",voiceParseOk:"✔ Extrait",
+ voiceExample:"Exemple : La Chouette aveugle par Hedayat genre Roman étagère 2",
+ voiceStartBtn:"🎤 Démarrer",voiceStopBtn:"⏹ Arrêter",voiceApplyBtn:"✔ Appliquer",
+ voiceNotSupported:"Reconnaissance vocale non supportée",micDenied:"Micro refusé",
+ photoNone:"Pas de photo",photoChoose:"📷 Choisir",photoChange:"📷 Changer",
+ shelf:"🗄 Étagère",shelfChoose:"— Choisir —",save:"Enregistrer",deleteBtn:"🗑 Supprimer",close:"Fermer",
+ importOK:function(a,s){return "✔ "+a+" ajoutés, "+s+" ignorés";},importBad:"Fichier illisible",
+ theme:"Thème",themeAuto:"Auto",themeLight:"Clair",themeDark:"Sombre",
+ fieldManager:"⚙ Champs",fieldManagerHint:"Gérer les champs",
+ fieldNew:"Nouveau champ",fieldNewPh:"Nom du champ",fieldAdd:"Ajouter",
+ fieldRequired:"Requis",fieldCustom:"Perso",fieldBuiltin:"Standard",fieldHidden:"(caché)",
+ fieldDeleteAsk:function(n){return 'Supprimer le champ « '+n+' » ?';},
+ fieldExists:"Nom déjà utilisé",fieldAdded:"✔ Ajouté",fieldRemoved:"✔ Supprimé",
+ fieldUp:"Haut",fieldDown:"Bas",fieldToggle:"Aff/Masq",
+ genres:["Roman","Poésie","Histoire","Philosophie","Psychologie","Science","Économie","Enfants","Religieux","Autre"]},
+es:{_name:"🇪🇸 Español",_locale:"es-ES",_dir:"ltr",
+ h1:"📚 Mi biblioteca",sub:"Libros, autores y ubicaciones",
+ langLbl:"Idioma:",addBook:"Añadir",backup:"Copia",importFile:"Importar",exportCsv:"CSV",
+ searchPh:"🔍 Buscar…",statTotal:"Total",statAuthors:"Autores",statGenres:"Géneros",statNoPlace:"Sin estante",
+ all:"Todos",noGenre:"Sin género",emptyLib:"Biblioteca vacía",emptyLibHint:"Toca Añadir",
+ noResult:"Sin resultados",noResultHint:"Cambia la búsqueda",
+ placeMissing:"📍 Sin ubicación",placeSet:"📍",
+ q_title:"¿Título?",ph_title:"ej. El búho ciego",q_author:"¿Autor?",ph_author:"ej. Hedayat",
+ q_translator:"¿Traductor?",ph_translator:"Vacío si no hay",q_publisher:"¿Editorial?",ph_publisher:"ej. Cheshmeh",
+ q_genre:"¿Género?",ph_genre:"Elige o escribe",q_place:"¿Ubicación?",ph_place:"ej. Estante 2",
+ step:"Paso",of:"de",stepPlace:"Ubicación",prev:"← Ant.",cancel:"Cancelar",next:"Sig. →",skip:"Omitir →",save:"✔ Guardar",
+ editBtn:"✎",removeBtn:"✕",deleteAsk:function(n){return '¿Eliminar "'+n+'"?';},yesDelete:"Sí",saved:"✔ Guardado",
+ micStart:"🎤 Habla…",micStop:"Micrófono apagado",micActive:"🎤 Micrófono activo",micWorking:"🎤 Di ahora…",
+ voiceFull:"🎙 Entrada por voz",voiceFullHint:"Di todo de una vez",
+ voiceTranscriptPh:"Tu voz aparece aquí…",
+ voiceListening:"🎤 Escuchando…",voiceProcessing:"⏳ Procesando…",
+ voiceParseConfirm:"Datos extraídos. ¿Confirmar?",voiceParseFail:"No pude analizar.",voiceParseOk:"✔ Extraído",
+ voiceExample:"Ej: El búho ciego por Hedayat género Novela estante 2",
+ voiceStartBtn:"🎤 Iniciar",voiceStopBtn:"⏹ Detener",voiceApplyBtn:"✔ Aplicar",
+ voiceNotSupported:"Reconocimiento de voz no soportado",micDenied:"Micrófono denegado",
+ photoNone:"Sin foto",photoChoose:"📷 Elegir",photoChange:"📷 Cambiar",
+ shelf:"🗄 Estante",shelfChoose:"— Elegir —",save:"Guardar",deleteBtn:"🗑 Eliminar",close:"Cerrar",
+ importOK:function(a,s){return "✔ "+a+" añadidos, "+s+" omitidos";},importBad:"Ilegible",
+ theme:"Tema",themeAuto:"Auto",themeLight:"Claro",themeDark:"Oscuro",
+ fieldManager:"⚙ Campos",fieldManagerHint:"Gestionar campos",
+ fieldNew:"Nuevo campo",fieldNewPh:"Nombre del campo",fieldAdd:"Añadir",
+ fieldRequired:"Obligatorio",fieldCustom:"Personalizado",fieldBuiltin:"Estándar",fieldHidden:"(oculto)",
+ fieldDeleteAsk:function(n){return '¿Eliminar campo "'+n+'"?';},
+ fieldExists:"Nombre ya usado",fieldAdded:"✔ Añadido",fieldRemoved:"✔ Eliminado",
+ fieldUp:"Arriba",fieldDown:"Abajo",fieldToggle:"Mostrar/Ocultar",
+ genres:["Novela","Poesía","Historia","Filosofía","Psicología","Ciencia","Economía","Infantil","Religioso","Otro"]},
+zh:{_name:"🇨🇳 中文",_locale:"zh-CN",_dir:"ltr",
+ h1:"📚 我的图书馆",sub:"书籍、作者和书架位置",
+ langLbl:"语言:",addBook:"添加书籍",backup:"备份",importFile:"导入",exportCsv:"导出 CSV",
+ searchPh:"🔍 搜索…",statTotal:"总数",statAuthors:"作者",statGenres:"类别",statNoPlace:"无位置",
+ all:"全部",noGenre:"无类别",emptyLib:"图书馆为空",emptyLibHint:"点击「添加书籍」",
+ noResult:"未找到",noResultHint:"修改搜索",
+ placeMissing:"📍 未记录位置",placeSet:"📍",
+ q_title:"书名？",ph_title:"例如：盲猫头鹰",q_author:"作者？",ph_author:"例如：赫达亚特",
+ q_translator:"译者？",ph_translator:"没有则留空",q_publisher:"出版社？",ph_publisher:"例如：Cheshmeh",
+ q_genre:"类别？",ph_genre:"选择或输入",q_place:"书架位置？",ph_place:"例如：2号架",
+ step:"步骤",of:"共",stepPlace:"书架位置",prev:"← 上一步",cancel:"取消",next:"下一步 →",skip:"跳过 →",save:"✔ 保存",
+ editBtn:"✎",removeBtn:"✕",deleteAsk:function(n){return '删除「'+n+'」？';},yesDelete:"是",saved:"✔ 已保存",
+ micStart:"🎤 请讲话…",micStop:"麦克风已关闭",micActive:"🎤 麦克风已开启",micWorking:"🎤 请说…",
+ voiceFull:"🎙 语音输入",voiceFullHint:"一次说完所有信息",
+ voiceTranscriptPh:"您的话会显示在这里…",
+ voiceListening:"🎤 正在聆听…",voiceProcessing:"⏳ 处理中…",
+ voiceParseConfirm:"已提取。确认吗？",voiceParseFail:"无法解析。",voiceParseOk:"✔ 已提取",
+ voiceExample:"例如：盲猫头鹰 作者 赫达亚特 类别 小说 书架2",
+ voiceStartBtn:"🎤 开始",voiceStopBtn:"⏹ 停止",voiceApplyBtn:"✔ 应用",
+ voiceNotSupported:"不支持语音识别",micDenied:"麦克风被拒绝",
+ photoNone:"暂无照片",photoChoose:"📷 选择照片",photoChange:"📷 更换照片",
+ shelf:"🗄 书架",shelfChoose:"— 选择 —",save:"保存",deleteBtn:"🗑 删除",close:"关闭",
+ importOK:function(a,s){return "✔ 添加 "+a+" 本，跳过 "+s+" 本";},importBad:"无法读取",
+ theme:"主题",themeAuto:"自动",themeLight:"浅色",themeDark:"深色",
+ fieldManager:"⚙ 管理字段",fieldManagerHint:"管理字段",
+ fieldNew:"新字段",fieldNewPh:"字段名",fieldAdd:"添加",
+ fieldRequired:"必填",fieldCustom:"自定义",fieldBuiltin:"内置",fieldHidden:"(隐藏)",
+ fieldDeleteAsk:function(n){return '删除字段「'+n+'」？';},
+ fieldExists:"名称已使用",fieldAdded:"✔ 已添加",fieldRemoved:"✔ 已删除",
+ fieldUp:"上移",fieldDown:"下移",fieldToggle:"显示/隐藏",
+ genres:["小说","诗歌","历史","哲学","心理学","科学","经济","儿童","宗教","其他"]},
+ja:{_name:"🇯🇵 日本語",_locale:"ja-JP",_dir:"ltr",
+ h1:"📚 私の図書館",sub:"本・著者・本棚の場所",
+ langLbl:"言語:",addBook:"本を追加",backup:"バックアップ",importFile:"インポート",exportCsv:"CSV",
+ searchPh:"🔍 検索…",statTotal:"総数",statAuthors:"著者",statGenres:"ジャンル",statNoPlace:"場所なし",
+ all:"すべて",noGenre:"ジャンルなし",emptyLib:"図書館は空です",emptyLibHint:"「本を追加」をタップ",
+ noResult:"見つかりません",noResultHint:"検索を変更",
+ placeMissing:"📍 場所が未登録",placeSet:"📍",
+ q_title:"書名？",ph_title:"例：盲目の梟",q_author:"著者？",ph_author:"例：ヘダーヤト",
+ q_translator:"訳者？",ph_translator:"いなければ空欄",q_publisher:"出版社？",ph_publisher:"例：Cheshmeh",
+ q_genre:"ジャンル？",ph_genre:"選択または入力",q_place:"本棚の場所？",ph_place:"例：棚2",
+ step:"ステップ",of:"/",stepPlace:"本棚の場所",prev:"← 前",cancel:"キャンセル",next:"次 →",skip:"スキップ →",save:"✔ 保存",
+ editBtn:"✎",removeBtn:"✕",deleteAsk:function(n){return '「'+n+'」を削除？';},yesDelete:"はい",saved:"✔ 保存しました",
+ micStart:"🎤 話してください…",micStop:"マイクOFF",micActive:"🎤 マイクON",micWorking:"🎤 どうぞ…",
+ voiceFull:"🎙 音声入力",voiceFullHint:"すべて一度に話す",
+ voiceTranscriptPh:"ここに音声が表示されます…",
+ voiceListening:"🎤 聞いています…",voiceProcessing:"⏳ 処理中…",
+ voiceParseConfirm:"抽出しました。確認？",voiceParseFail:"解析できません。",voiceParseOk:"✔ 抽出",
+ voiceExample:"例：盲目の梟 著者 ヘダーヤト ジャンル 小説 棚2",
+ voiceStartBtn:"🎤 開始",voiceStopBtn:"⏹ 停止",voiceApplyBtn:"✔ 適用",
+ voiceNotSupported:"音声認識非対応",micDenied:"マイク拒否",
+ photoNone:"写真なし",photoChoose:"📷 選択",photoChange:"📷 変更",
+ shelf:"🗄 本棚",shelfChoose:"— 選択 —",save:"保存",deleteBtn:"🗑 削除",close:"閉じる",
+ importOK:function(a,s){return "✔ "+a+"追加、"+s+"スキップ";},importBad:"読めません",
+ theme:"テーマ",themeAuto:"自動",themeLight:"ライト",themeDark:"ダーク",
+ fieldManager:"⚙ フィールド",fieldManagerHint:"フィールド管理",
+ fieldNew:"新規フィールド",fieldNewPh:"フィールド名",fieldAdd:"追加",
+ fieldRequired:"必須",fieldCustom:"カスタム",fieldBuiltin:"標準",fieldHidden:"(非表示)",
+ fieldDeleteAsk:function(n){return '「'+n+'」を削除？';},
+ fieldExists:"既に使用中",fieldAdded:"✔ 追加",fieldRemoved:"✔ 削除",
+ fieldUp:"上",fieldDown:"下",fieldToggle:"表示/非表示",
+ genres:["小説","詩","歴史","哲学","心理学","科学","経済","児童","宗教","その他"]},
+ar:{_name:"🇸🇦 العربية",_locale:"ar-SA",_dir:"rtl",
+ h1:"📚 مكتبتي",sub:"الكتب والمؤلفون ومواقع الرفوف",
+ langLbl:"اللغة:",addBook:"إضافة",backup:"نسخة",importFile:"استيراد",exportCsv:"CSV",
+ searchPh:"🔍 بحث…",statTotal:"الإجمالي",statAuthors:"المؤلفون",statGenres:"التصنيفات",statNoPlace:"بدون رف",
+ all:"الكل",noGenre:"بدون تصنيف",emptyLib:"المكتبة فارغة",emptyLibHint:"اضغط إضافة",
+ noResult:"لا يوجد",noResultHint:"غيّر البحث",
+ placeMissing:"📍 الموقع غير مسجل",placeSet:"📍",
+ q_title:"عنوان الكتاب؟",ph_title:"مثال: البومة العمياء",q_author:"المؤلف؟",ph_author:"مثال: هدايت",
+ q_translator:"المترجم؟",ph_translator:"اتركه فارغاً",q_publisher:"الناشر؟",ph_publisher:"مثال: جشمه",
+ q_genre:"التصنيف؟",ph_genre:"اختر أو اكتب",q_place:"الموقع؟",ph_place:"مثال: الرف 2",
+ step:"الخطوة",of:"من",stepPlace:"تسجيل الموقع",prev:"→ السابق",cancel:"إلغاء",next:"التالي ←",skip:"تخطي ←",save:"✔ حفظ",
+ editBtn:"✎",removeBtn:"✕",deleteAsk:function(n){return 'حذف «'+n+'»؟';},yesDelete:"نعم",saved:"✔ تم الحفظ",
+ micStart:"🎤 تحدث…",micStop:"الميكروفون مغلق",micActive:"🎤 الميكروفون مفعل",micWorking:"🎤 تحدث الآن…",
+ voiceFull:"🎙 إدخال صوتي",voiceFullHint:"قل كل شيء مرة واحدة",
+ voiceTranscriptPh:"سيظهر كلامك هنا…",
+ voiceListening:"🎤 أستمع…",voiceProcessing:"⏳ معالجة…",
+ voiceParseConfirm:"تم الاستخراج. تأكيد؟",voiceParseFail:"تعذر التحليل.",voiceParseOk:"✔ تم",
+ voiceExample:"مثال: البومة العمياء بقلم هدايت تصنيف رواية الرف 2",
+ voiceStartBtn:"🎤 ابدأ",voiceStopBtn:"⏹ إيقاف",voiceApplyBtn:"✔ تطبيق",
+ voiceNotSupported:"التعرف على الصوت غير مدعوم",micDenied:"تم رفض الميكروفون",
+ photoNone:"لا صورة",photoChoose:"📷 اختر صورة",photoChange:"📷 تغيير الصورة",
+ shelf:"🗄 الرف",shelfChoose:"— اختر —",save:"حفظ",deleteBtn:"🗑 حذف",close:"إغلاق",
+ importOK:function(a,s){return "✔ أُضيف "+a+"، تُجوهل "+s;},importBad:"ملف غير قابل للقراءة",
+ theme:"المظهر",themeAuto:"تلقائي",themeLight:"فاتح",themeDark:"داكن",
+ fieldManager:"⚙ الحقول",fieldManagerHint:"إدارة الحقول",
+ fieldNew:"حقل جديد",fieldNewPh:"اسم الحقل",fieldAdd:"إضافة",
+ fieldRequired:"مطلوب",fieldCustom:"مخصص",fieldBuiltin:"افتراضي",fieldHidden:"(مخفي)",
+ fieldDeleteAsk:function(n){return 'حذف الحقل «'+n+'»؟';},
+ fieldExists:"الاسم مستخدم بالفعل",fieldAdded:"✔ أُضيف",fieldRemoved:"✔ حُذف",
+ fieldUp:"أعلى",fieldDown:"أسفل",fieldToggle:"عرض/إخفاء",
+ genres:["رواية","شعر","تاريخ","فلسفة","علم نفس","علوم","اقتصاد","أطفال","ديني","أخرى"]},
+tr:{_name:"🇹🇷 Türkçe",_locale:"tr-TR",_dir:"ltr",
+ h1:"📚 Kütüphanem",sub:"Kitaplar, yazarlar ve raf konumları",
+ langLbl:"Dil:",addBook:"Kitap Ekle",backup:"Yedek",importFile:"İçe aktar",exportCsv:"CSV",
+ searchPh:"🔍 Ara…",statTotal:"Toplam",statAuthors:"Yazarlar",statGenres:"Türler",statNoPlace:"Rafsız",
+ all:"Tümü",noGenre:"Tür yok",emptyLib:"Kütüphane boş",emptyLibHint:"«Kitap Ekle»ye dokunun",
+ noResult:"Bulunamadı",noResultHint:"Aramayı değiştirin",
+ placeMissing:"📍 Konum yok",placeSet:"📍",
+ q_title:"Kitap adı?",ph_title:"örn. Kör Baykuş",q_author:"Yazar?",ph_author:"örn. Hedayat",
+ q_translator:"Çevirmen?",ph_translator:"Yoksa boş",q_publisher:"Yayınevi?",ph_publisher:"örn. Cheshmeh",
+ q_genre:"Tür?",ph_genre:"Seç veya yaz",q_place:"Raf konumu?",ph_place:"örn. Raf 2",
+ step:"Adım",of:"/",stepPlace:"Raf konumu",prev:"← Geri",cancel:"İptal",next:"İleri →",skip:"Atla →",save:"✔ Kaydet",
+ editBtn:"✎",removeBtn:"✕",deleteAsk:function(n){return '«'+n+'» silinsin mi?';},yesDelete:"Evet",saved:"✔ Kaydedildi",
+ micStart:"🎤 Konuşun…",micStop:"Mikrofon kapalı",micActive:"🎤 Mikrofon açık",micWorking:"🎤 Şimdi söyle…",
+ voiceFull:"🎙 Sesli giriş",voiceFullHint:"Hepsini bir seferde söyle",
+ voiceTranscriptPh:"Konuşmanız burada görünür…",
+ voiceListening:"🎤 Dinliyorum…",voiceProcessing:"⏳ İşleniyor…",
+ voiceParseConfirm:"Veriler çıkarıldı. Onaylıyor musunuz?",voiceParseFail:"Ayrıştırılamadı.",voiceParseOk:"✔ Çıkarıldı",
+ voiceExample:"Örnek: Kör Baykuş yazan Hedayat tür Roman raf 2",
+ voiceStartBtn:"🎤 Başla",voiceStopBtn:"⏹ Dur",voiceApplyBtn:"✔ Uygula",
+ voiceNotSupported:"Ses tanıma desteklenmiyor",micDenied:"Mikrofon reddedildi",
+ photoNone:"Fotoğraf yok",photoChoose:"📷 Seç",photoChange:"📷 Değiştir",
+ shelf:"🗄 Raf",shelfChoose:"— Seç —",save:"Kaydet",deleteBtn:"🗑 Sil",close:"Kapat",
+ importOK:function(a,s){return "✔ "+a+" eklendi, "+s+" atlandı";},importBad:"Okunamıyor",
+ theme:"Tema",themeAuto:"Otomatik",themeLight:"Açık",themeDark:"Koyu",
+ fieldManager:"⚙ Alanlar",fieldManagerHint:"Alanları yönet",
+ fieldNew:"Yeni alan",fieldNewPh:"Alan adı",fieldAdd:"Ekle",
+ fieldRequired:"Zorunlu",fieldCustom:"Özel",fieldBuiltin:"Yerleşik",fieldHidden:"(gizli)",
+ fieldDeleteAsk:function(n){return '«'+n+'» alanı silinsin mi?';},
+ fieldExists:"Ad zaten kullanılıyor",fieldAdded:"✔ Eklendi",fieldRemoved:"✔ Silindi",
+ fieldUp:"Yukarı",fieldDown:"Aşağı",fieldToggle:"Göster/Gizle",
+ genres:["Roman","Şiir","Tarih","Felsefe","Psikoloji","Bilim","Ekonomi","Çocuk","Dini","Diğer"]},
+ckb:{_name:"☀️ کوردی",_locale:"ckb-IR",_dir:"rtl",
+ h1:"📚 کتێبخانەکەم",sub:"کتێبەکان، نووسەران و شوێنی ڕەفە",
+ langLbl:"زمان:",addBook:"زیادکردنی کتێب",backup:"پاڵپشت",importFile:"هاوردەکردن",exportCsv:"CSV",
+ searchPh:"🔍 گەڕان…",statTotal:"کۆی کتێبەکان",statAuthors:"نووسەران",statGenres:"چەشنەکان",statNoPlace:"بێ شوێن",
+ all:"هەموو",noGenre:"بێ چەشن",emptyLib:"کتێبخانە بەتاڵە",emptyLibHint:"کرتە لەسەر زیادکردن",
+ noResult:"نەدۆزرایەوە",noResultHint:"گەڕان بگۆڕە",
+ placeMissing:"📍 شوێن تۆمار نەکراوە",placeSet:"📍",
+ q_title:"ناوی کتێب؟",ph_title:"بۆ نموونە: کوندەپەپووی کوێر",q_author:"نووسەر؟",ph_author:"بۆ نموونە: هیدایەت",
+ q_translator:"وەرگێڕ؟",ph_translator:"ئەگەر نییە بەتاڵی بهێڵە",q_publisher:"بڵاوکەرەوە؟",ph_publisher:"بۆ نموونە: چەشمە",
+ q_genre:"چەشن؟",ph_genre:"هەڵبژێرە یان بنووسە",q_place:"شوێن؟",ph_place:"بۆ نموونە: ڕەفەی ٢",
+ step:"هەنگاو",of:"لە",stepPlace:"تۆمارکردنی شوێن",prev:"→ پێشوو",cancel:"پاشگەزبوونەوە",next:"داهاتوو ←",skip:"بازدان ←",save:"✔ تۆمارکردن",
+ editBtn:"✎",removeBtn:"✕",deleteAsk:function(n){return '«'+n+'» بسڕدرێتەوە؟';},yesDelete:"بەڵێ",saved:"✔ تۆمارکرا",
+ micStart:"🎤 قسە بکە…",micStop:"مایکرۆفۆن کوژێنرایەوە",micActive:"🎤 مایکرۆفۆن چالاکە",micWorking:"🎤 ئێستا بڵێ…",
+ voiceFull:"🎙 داخڵکردنی دەنگی",voiceFullHint:"هەموو زانیارییەکان بە یەک جار بڵێ",
+ voiceTranscriptPh:"دەنگەکەت لێرە دەردەکەوێت…",
+ voiceListening:"🎤 گوێدەگرم…",voiceProcessing:"⏳ پرۆسێس…",
+ voiceParseConfirm:"داتاکان دەرهێنرا. دڵنیایت؟",voiceParseFail:"نەتوانرا شرۆڤە بکەم.",voiceParseOk:"✔ دەرهێنرا",
+ voiceExample:"نموونە: کوندەپەپووی کوێر نووسەر هیدایەت چەشن ڕۆمان ڕەفەی ٢",
+ voiceStartBtn:"🎤 دەستپێبکە",voiceStopBtn:"⏹ بوەستە",voiceApplyBtn:"✔ جێبەجێکردن",
+ voiceNotSupported:"ناسینەوەی دەنگ پشتگیری ناکرێت",micDenied:"ڕێگەدان نەدرا",
+ photoNone:"هیچ وێنەیەک نییە",photoChoose:"📷 وێنە هەڵبژێرە",photoChange:"📷 وێنە بگۆڕە",
+ shelf:"🗄 ڕەفە",shelfChoose:"— ڕەفە هەڵبژێرە —",save:"پاشەکەوتکردن",deleteBtn:"🗑 سڕینەوە",close:"داخستن",
+ importOK:function(a,s){return "✔ "+a+" زیادکرا، "+s+" پشتگوێ";},importBad:"فایل نەخوێندرایەوە",
+ theme:"ڕووکار",themeAuto:"خۆکار",themeLight:"ڕووناک",themeDark:"تاریک",
+ fieldManager:"⚙ بەڕێوەبردنی خانەکان",fieldManagerHint:"خانەکان بەڕێوە ببە",
+ fieldNew:"خانەی نوێ",fieldNewPh:"ناوی خانە",fieldAdd:"زیادکردن",
+ fieldRequired:"پێویست",fieldCustom:"تایبەت",fieldBuiltin:"بنەڕەت",fieldHidden:"(شاراوە)",
+ fieldDeleteAsk:function(n){return 'خانەی «'+n+'» بسڕدرێتەوە؟';},
+ fieldExists:"ناو بەکارهاتووە",fieldAdded:"✔ زیادکرا",fieldRemoved:"✔ سڕایەوە",
+ fieldUp:"سەرەوە",fieldDown:"خوارەوە",fieldToggle:"پیشاندان/شاردن",
+ genres:["ڕۆمان","شیعر","مێژوو","فەلسەفە","دەروونناسی","زانست","ئابووری","منداڵان","ئایینی","هیتر"]}
+};
+
+/* ============================================================
+   State
+============================================================ */
+var LANG = (function(){
+  var s = store.getItem("lib_lang");
+  if (s && I18N[s]) return s;
+  var bl = (navigator.language||"fa").split("-")[0].toLowerCase();
+  if (I18N[bl]) return bl;
+  if (bl === "ku" || bl === "ckb") return "ckb";
+  return "fa";
+})();
+var THEME = store.getItem("lib_theme") || "auto";
+var LS = "lib_books_v1";
+var LSF = "lib_fields_v2";
+var books = [];
+try { var raw = store.getItem(LS); if (raw) books = JSON.parse(raw); } catch(e) { books = []; }
+var q = "", gf = "all", cur = null, det = null, dph = "";
+
+var DEFAULT_FIELDS = [
+  {id:"title", i18nKey:"q_title", phKey:"ph_title", req:1, builtin:1, visible:1},
+  {id:"author", i18nKey:"q_author", phKey:"ph_author", req:1, builtin:1, visible:1, icon:"✍️"},
+  {id:"translator", i18nKey:"q_translator", phKey:"ph_translator", opt:1, builtin:1, visible:1, icon:"🌐"},
+  {id:"publisher", i18nKey:"q_publisher", phKey:"ph_publisher", builtin:1, visible:1, icon:"🏛"},
+  {id:"genre", i18nKey:"q_genre", phKey:"ph_genre", req:1, builtin:1, visible:1, chipsKey:"genres"},
+  {id:"place", i18nKey:"q_place", phKey:"ph_place", opt:1, builtin:1, visible:1}
+];
+
+var FIELDS = (function(){
+  var fromStore = null;
+  try {
+    var raw = store.getItem(LSF);
+    if (raw) {
+      var arr = JSON.parse(raw);
+      if (Array.isArray(arr) && arr.length) fromStore = arr;
+    }
+  } catch(e) {}
+  if (fromStore) {
+    var have = {};
+    fromStore.forEach(function(f){ have[f.id] = 1; });
+    DEFAULT_FIELDS.forEach(function(df){ if (!have[df.id]) fromStore.push(JSON.parse(JSON.stringify(df))); });
+    return fromStore;
+  }
+  return JSON.parse(JSON.stringify(DEFAULT_FIELDS));
+})();
+
+function saveFields(){ store.setItem(LSF, JSON.stringify(FIELDS)); }
+function visibleFields(){ return FIELDS.filter(function(f){ return f.visible !== 0; }); }
+function fieldLabel(f){
+  if (f.builtin && f.i18nKey) {
+    var v = (I18N[LANG] && I18N[LANG][f.i18nKey]) || I18N.fa[f.i18nKey];
+    return v || f.i18nKey;
+  }
+  return f.label || f.id;
+}
+function fieldPh(f){
+  if (f.builtin && f.phKey) {
+    var v = (I18N[LANG] && I18N[LANG][f.phKey]) || I18N.fa[f.phKey];
+    return v || "";
+  }
+  return f.ph || "";
+}
+function fieldChips(f){
+  if (f.chipsKey) return (I18N[LANG] && I18N[LANG][f.chipsKey]) || I18N.fa[f.chipsKey] || [];
+  if (f.chips) return f.chips;
+  return null;
+}
+function fieldReq(f){ return !!f.req; }
+function fieldOpt(f){ return !!f.opt; }
+
+/* ============================================================
+   Helpers
+============================================================ */
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+
+function T(k){
+  var v = (I18N[LANG] && I18N[LANG][k] !== undefined) ? I18N[LANG][k] : I18N.fa[k];
+  return v !== undefined ? v : k;
+}
+
+function toast(m){
+  var e = document.createElement("div");
+  e.className = "toast"; e.textContent = m;
+  document.body.appendChild(e);
+  setTimeout(function(){ e.remove(); }, 2600);
+}
+function fmt(n){ try { return Number(n).toLocaleString(I18N[LANG]._locale||"fa-IR"); } catch(e) { return String(n); } }
+
+function applyTheme(){
+  document.documentElement.setAttribute("data-theme", THEME);
+  var btn = $("themeBtn");
+  if (btn) btn.textContent = THEME === "light" ? "☀️" : THEME === "dark" ? "🌙" : "🌗";
+  try {
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+      var dark = THEME === "dark" || (THEME === "auto" && matchMedia("(prefers-color-scheme: dark)").matches);
+      meta.setAttribute("content", dark ? "#06040d" : "#7c3aed");
+    }
+  } catch(e) {}
+}
+function cycleTheme(){
+  THEME = THEME === "auto" ? "light" : THEME === "light" ? "dark" : "auto";
+  store.setItem("lib_theme", THEME);
+  applyTheme();
+  var key = "theme" + THEME.charAt(0).toUpperCase() + THEME.slice(1);
+  toast(T("theme") + ": " + T(key));
+}
+if (matchMedia) {
+  try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme); }
+  catch(e) { try { matchMedia("(prefers-color-scheme: dark)").addListener(applyTheme); } catch(e2){} }
+}
+
+function tick(){
+  try {
+    var now = new Date();
+    var loc = (I18N[LANG] && I18N[LANG]._locale) || "fa-IR";
+    var main, greg;
+    try { main = new Intl.DateTimeFormat(loc, {weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(now); }
+    catch(e1) { main = now.toLocaleDateString(); }
+    try { greg = new Intl.DateTimeFormat("en-GB", {weekday:"short",day:"numeric",month:"short",year:"numeric"}).format(now); }
+    catch(e2) { greg = now.toISOString().slice(0,10); }
+    $("dtb").innerHTML = "<b>"+esc(main)+"</b>"+esc(greg);
+  } catch(e) { $("dtb").textContent = new Date().toString(); }
+}
+
+function applyI18n(){
+  var lang = I18N[LANG];
+  var rtl = lang._dir === "rtl";
+  document.documentElement.lang = LANG;
+  document.documentElement.dir = rtl ? "rtl" : "ltr";
+  document.body.lang = LANG;
+  document.body.dir = rtl ? "rtl" : "ltr";
+
+  $("h1").textContent = lang.h1;
+  $("sub").textContent = lang.sub;
+  $("langLbl").textContent = lang.langLbl;
+  $("bkLbl").textContent = lang.backup;
+  $("imLbl").textContent = lang.importFile;
+  $("expLbl").textContent = lang.exportCsv;
+  $("addLbl").textContent = lang.addBook;
+  $("fabLbl").textContent = lang.addBook;
+  $("s").placeholder = lang.searchPh;
+  document.title = lang._name + " — Library";
+  $("langSel").value = LANG;
+
+  if (!__storageOK && !__warnDismissed) {
+    $("warnTxt").textContent = "در این محیط پیش‌نمایش، داده‌ها موقت ذخیره می‌شوند. برای ذخیره دائمی، فایل را روی هاست خود قرار دهید.";
+    $("warn").classList.add("on");
+  } else {
+    $("warn").classList.remove("on");
+  }
+
+  applyTheme();
+  tick();
+  render();
+}
+
+function buildLangBar(){
+  var sel = $("langSel");
+  sel.innerHTML = "";
+  Object.keys(I18N).forEach(function(k){
+    var o = document.createElement("option");
+    o.value = k; o.textContent = I18N[k]._name;
+    sel.appendChild(o);
+  });
+  sel.value = LANG;
+  sel.onchange = function(){
+    LANG = sel.value;
+    store.setItem("lib_lang", LANG);
+    applyI18n();
+  };
+}
+
+function render(){
+  try {
+    var g = [], seen = {};
+    books.forEach(function(b){ if (b.genre && !seen[b.genre]) { seen[b.genre]=1; g.push(b.genre); } });
+    var st = [
+      [T("statTotal"), books.length],
+      [T("statAuthors"), Object.keys(books.reduce(function(a,b){ if(b.author) a[b.author]=1; return a; },{})).length],
+      [T("statGenres"), g.length],
+      [T("statNoPlace"), books.filter(function(b){ return !b.place; }).length]
+    ];
+    $("stats").innerHTML = st.map(function(x){
+      return '<div class="st"><b>'+fmt(x[1])+'</b><span>'+esc(x[0])+'</span></div>';
+    }).join("");
+    var chips = ['<button class="chip '+(gf==="all"?"on":"")+'" data-g="all">'+esc(T("all"))+'</button>'];
+    g.forEach(function(x){ chips.push('<button class="chip '+(gf===x?"on":"")+'" data-g="'+esc(x)+'">'+esc(x)+'</button>'); });
+    $("chips").innerHTML = chips.join("");
+    var k = q.trim().toLowerCase();
+    var L = books.filter(function(b){
+      if (gf !== "all" && b.genre !== gf) return false;
+      if (!k) return true;
+      var parts = [b.title,b.author,b.translator,b.publisher,b.genre,b.place];
+      FIELDS.forEach(function(f){ if (b[f.id]) parts.push(b[f.id]); });
+      return parts.join(" ").toLowerCase().indexOf(k) !== -1;
+    });
+    if (!L.length) {
+      $("grid").innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="em">📖</div><h3>'+
+        esc(books.length ? T("noResult") : T("emptyLib"))+'</h3><p>'+
+        esc(books.length ? T("noResultHint") : T("emptyLibHint"))+'</p></div>';
+      return;
+    }
+    $("grid").innerHTML = L.map(cardHTML).join("");
+  } catch(e) { console.error(e); }
+}
+
+function cardHTML(b, i){
+  var vf = visibleFields();
+  var title = b.title || "";
+  var genre = b.genre || "";
+  var place = b.place || "";
+  var h = 0; var s = genre || "?";
+  for (var j=0; j<s.length; j++) h = (h*31 + s.charCodeAt(j)) % 360;
+  var img = /^data:image\//.test(b.photo || "");
+  var bg = "linear-gradient(145deg,hsl("+h+" 72% 62%),hsl("+((h+50)%360)+" 72% 40%))";
+  var lines = "";
+  vf.forEach(function(f){
+    if (f.id === "title" || f.id === "genre" || f.id === "place") return;
+    var v = b[f.id];
+    if (!v) return;
+    var icon = f.icon || "•";
+    lines += '<p>'+icon+' '+esc(v)+'</p>';
+  });
+  var tagHtml = "";
+  if (vf.some(function(f){ return f.id === "genre"; })) {
+    tagHtml = '<span class="tag" style="background:hsl('+h+' 62% 45%)">'+esc(genre || T("noGenre"))+'</span>';
+  }
+  var locHtml = "";
+  if (vf.some(function(f){ return f.id === "place"; })) {
+    locHtml = '<button class="loc '+(place?"ok":"")+'" data-a="p">'+
+      (place ? esc(T("placeSet"))+" "+esc(place) : esc(T("placeMissing")))+'</button>';
+  }
+  return '<article class="card" data-id="'+esc(b.id)+'" style="animation-delay:'+Math.min(i*40,400)+'ms">'+
+    '<div class="acts">'+
+      '<button data-a="e" title="edit">'+esc(T("editBtn"))+'</button>'+
+      '<button data-a="d" title="delete">'+esc(T("removeBtn"))+'</button>'+
+    '</div>'+
+    '<div class="ci">'+
+      '<div class="cv" data-a="v" style="background:'+bg+'">'+(img?'<img src="'+b.photo+'" alt="">':esc(title))+'</div>'+
+      '<div class="inf">'+
+        '<h3 data-a="v">'+esc(title)+'</h3>'+
+        lines+
+        tagHtml+
+        locHtml+
+      '</div>'+
+    '</div>'+
+  '</article>';
+}
+
+/* ============================================================
+   Voice parser keywords
+============================================================ */
+var VOICE_KEYWORDS = {
+  fa:{author:["نوشته","نویسنده","اثر","به قلم","از"],translator:["مترجم","ترجمه"],publisher:["انتشارات","ناشر","چاپ"],genre:["ژانر","دسته","موضوع","سبک"],place:["قفسه","جای","ردیف","طبقه","محل"],title:["کتاب","عنوان","نام"]},
+  en:{author:["written by","author","by"],translator:["translated by","translator"],publisher:["publisher","published by"],genre:["genre","category","type"],place:["shelf","location","row"],title:["book","title","named"]},
+  de:{author:["von","autor"],translator:["übersetzer"],publisher:["verlag"],genre:["genre"],place:["regal"],title:["buch","titel"]},
+  fr:{author:["par","auteur"],translator:["traducteur"],publisher:["éditeur"],genre:["genre"],place:["étagère"],title:["livre","titre"]},
+  es:{author:["por","autor"],translator:["traductor"],publisher:["editorial"],genre:["género"],place:["estante"],title:["libro","título"]},
+  zh:{author:["作者","由"],translator:["译者"],publisher:["出版社"],genre:["类别"],place:["书架"],title:["书","书名"]},
+  ja:{author:["著者","作者"],translator:["訳者"],publisher:["出版社"],genre:["ジャンル"],place:["棚"],title:["本","書名"]},
+  ar:{author:["بقلم","المؤلف"],translator:["المترجم"],publisher:["الناشر"],genre:["تصنيف"],place:["الرف"],title:["كتاب","عنوان"]},
+  tr:{author:["yazan","yazar"],translator:["çevirmen"],publisher:["yayınevi"],genre:["tür"],place:["raf"],title:["kitap","başlık"]},
+  ckb:{author:["نووسەر"],translator:["وەرگێڕ"],publisher:["بڵاوکەرەوە"],genre:["چەشن"],place:["ڕەفە"],title:["کتێب"]}
+};
+
+var NUM_WORDS_FA = {"صفر":0,"یک":1,"دو":2,"سه":3,"چهار":4,"پنج":5,"شش":6,"هفت":7,"هشت":8,"نه":9,"ده":10,"یازده":11,"دوازده":12,"سیزده":13,"چهارده":14,"پانزده":15,"شانزده":16,"هفده":17,"هجده":18,"نوزده":19,"بیست":20};
+var NUM_WORDS_EN = {"zero":0,"one":1,"two":2,"three":3,"four":4,"five":5,"six":6,"seven":7,"eight":8,"nine":9,"ten":10,"eleven":11,"twelve":12};
+
+function normalizeText(s){
+  return String(s||"").replace(/ي/g,"ی").replace(/ك/g,"ک")
+    .replace(/[\u064B-\u065F\u0670]/g,"").replace(/[.,،؛]/g," ")
+    .replace(/\s+/g," ").trim();
+}
+function convertNumbers(s){
+  var out = s;
+  Object.keys(NUM_WORDS_FA).forEach(function(w){
+    out = out.replace(new RegExp("(^|\\s)"+w+"(\\s|$)","g"), "$1"+NUM_WORDS_FA[w]+"$2");
+  });
+  Object.keys(NUM_WORDS_EN).forEach(function(w){
+    out = out.replace(new RegExp("\\b"+w+"\\b","gi"), NUM_WORDS_EN[w]);
+  });
+  var fa2en = {"۰":"0","۱":"1","۲":"2","۳":"3","۴":"4","۵":"5","۶":"6","۷":"7","۸":"8","۹":"9"};
+  out = out.replace(/[۰-۹]/g, function(c){ return fa2en[c]; });
+  return out;
+}
+function levenshtein(a,b){
+  var m = [];
+  for (var i=0; i<=a.length; i++) m[i] = [i];
+  for (var j=1; j<=b.length; j++) m[0][j] = j;
+  for (var i2=1; i2<=a.length; i2++)
+    for (var j2=1; j2<=b.length; j2++)
+      m[i2][j2] = Math.min(m[i2-1][j2]+1, m[i2][j2-1]+1, m[i2-1][j2-1] + (a[i2-1]===b[j2-1]?0:1));
+  return m[a.length][b.length];
+}
+function similarity(a,b){ var max=Math.max(a.length,b.length); return max?1-levenshtein(a,b)/max:1; }
+
+function smartParse(text){
+  var norm = convertNumbers(normalizeText(text));
+  var kw = VOICE_KEYWORDS[LANG] || VOICE_KEYWORDS.fa;
+  var result = {};
+  FIELDS.forEach(function(f){ result[f.id] = ""; });
+
+  var allKw = [];
+  Object.keys(kw).forEach(function(field){
+    if (!FIELDS.some(function(f){ return f.id === field; })) return;
+    kw[field].forEach(function(w){ allKw.push({field:field, word:w.toLowerCase()}); });
+  });
+  allKw.sort(function(a,b){ return b.word.length - a.word.length; });
+
+  var found = [];
+  var lower = norm.toLowerCase();
+  allKw.forEach(function(item){
+    var idx = lower.indexOf(item.word);
+    if (idx !== -1) found.push({idx:idx, end:idx+item.word.length, field:item.field, word:item.word});
+  });
+  found = found.filter(function(f, i, arr){
+    return !arr.some(function(o, j){ return j !== i && o.idx === f.idx && o.word.length > f.word.length; });
+  });
+  found.sort(function(a,b){ return a.idx - b.idx; });
+
+  for (var i=0; i<found.length; i++){
+    var start = found[i].end;
+    var end = (i+1 < found.length) ? found[i+1].idx : norm.length;
+    var val = norm.slice(start, end).trim();
+    if (val && !result[found[i].field]) result[found[i].field] = val;
+  }
+  if (!result.title && found.length > 0 && found[0].idx > 0) result.title = norm.slice(0, found[0].idx).trim();
+  else if (!result.title) result.title = norm;
+
+  result.title = (result.title||"").replace(/^(کتاب|book|buch|livre|libro|書|本|كتاب|kitap|کتێب)\s+/i, "").trim();
+
+  if (result.genre) {
+    var genreField = FIELDS.filter(function(f){ return f.id==="genre"; })[0];
+    var genres = genreField ? (fieldChips(genreField) || []) : [];
+    var best = result.genre, bestScore = 0;
+    genres.forEach(function(g){
+      var sc = similarity(normalizeText(g).toLowerCase(), result.genre.toLowerCase());
+      if (sc > bestScore) { bestScore = sc; best = g; }
+    });
+    if (bestScore >= 0.55) result.genre = best;
+  }
+  return result;
+}
+
+/* ============================================================
+   Voice module
+============================================================ */
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+var Voice = {
+  rec: null,
+  active: false,
+  accumulated: "",
+  interim: "",
+  _restartTimer: null,
+  _silenceTimer: null,
+  onUpdate: null,
+  onDone: null,
+  onError: null,
+
+  start: function(opts){
+    opts = opts || {};
+    if (!SR) { opts.onError && opts.onError("unsupported"); return false; }
+    this.stop();
+    this.active = true;
+    this.accumulated = "";
+    this.interim = "";
+    this.onUpdate = opts.onUpdate;
+    this.onDone = opts.onDone;
+    this.onError = opts.onError;
+    this._loop();
+    return true;
+  },
+
+  _loop: function(){
+    if (!this.active) return;
+    var self = this;
+    try {
+      this.rec = new SR();
+      this.rec.lang = (I18N[LANG] && I18N[LANG]._locale) || "fa-IR";
+      this.rec.continuous = false;
+      this.rec.interimResults = true;
+      this.rec.maxAlternatives = 1;
+
+      this.rec.onresult = function(e){
+        var interim = "";
+        for (var i = e.resultIndex; i < e.results.length; i++){
+          if (e.results[i].isFinal) {
+            self.accumulated += e.results[i][0].transcript + " ";
+          } else {
+            interim += e.results[i][0].transcript;
+          }
+        }
+        self.interim = interim;
+        self.onUpdate && self.onUpdate((self.accumulated + interim).trim());
+        clearTimeout(self._silenceTimer);
+        self._silenceTimer = setTimeout(function(){
+          if (self.active && self.accumulated.trim()) self.finish();
+        }, 2500);
+      };
+
+      this.rec.onerror = function(e){
+        if (e.error === "no-speech" || e.error === "aborted") return;
+        self.active = false;
+        self.onError && self.onError(e.error);
+      };
+
+      this.rec.onend = function(){
+        if (!self.active) {
+          self.onDone && self.onDone(self.accumulated.trim());
+          return;
+        }
+        clearTimeout(self._restartTimer);
+        self._restartTimer = setTimeout(function(){ self._loop(); }, 350);
+      };
+
+      this.rec.start();
+    } catch(e) {
+      this.active = false;
+      this.onError && this.onError(e.message || "start_failed");
+    }
+  },
+
+  stop: function(){
+    this.active = false;
+    clearTimeout(this._restartTimer);
+    clearTimeout(this._silenceTimer);
+    try {
+      if (this.rec) {
+        this.rec.onend = null;
+        this.rec.onerror = null;
+        this.rec.onresult = null;
+        this.rec.abort();
+      }
+    } catch(e) {}
+    this.rec = null;
+  },
+
+  finish: function(){
+    var txt = (this.accumulated + " " + this.interim).trim();
+    this.stop();
+    this.accumulated = "";
+    this.interim = "";
+    this.onDone && this.onDone(txt);
+  }
+};
+
+/* ============================================================
+   Wizard
+============================================================ */
+function openWiz(b){
+  cur = {
+    id: b && b.id,
+    d: Object.assign({}, b || {}),
+    fields: visibleFields().slice(),
+    i: 0
+  };
+  delete cur.d.id;
+  if (!cur.fields.length) {
+    toast(T("fieldManagerHint"));
+    return;
+  }
+  wiz();
+  $("md").classList.add("on");
+}
+
+function closeWiz(){
+  Voice.stop();
+  $("md").classList.remove("on");
+  cur = null;
+}
+
+function wiz(){
+  var fields = cur.fields;
+  var s = fields[cur.i];
+  var last = cur.i === fields.length - 1;
+  var v = cur.d[s.id] || "";
+  var prog = ((cur.i + 1) / fields.length * 100);
+  var lbl = fieldLabel(s);
+  var ph = fieldPh(s);
+  var chips = fieldChips(s);
+
+  var chipHtml = "";
+  if (chips && chips.length) {
+    chipHtml = '<div class="chips" style="margin-top:12px">';
+    chips.forEach(function(c){ chipHtml += '<button type="button" class="chip" data-c="'+esc(c)+'">'+esc(c)+'</button>'; });
+    chipHtml += '</div>';
+  }
+
+  $("box").innerHTML =
+    '<div class="pg"><i style="width:'+prog+'%"></i></div>'+
+    '<div style="display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px">'+
+      '<small style="color:var(--mut);font-size:12px">'+
+        esc(T("step"))+" "+fmt(cur.i+1)+" "+esc(T("of"))+" "+fmt(fields.length)+
+      '</small>'+
+      '<div style="display:flex;gap:6px;flex-wrap:wrap">'+
+        '<button type="button" class="chip" id="voiceFull" style="border-color:var(--acc);color:var(--acc);font-weight:600">🎙 '+esc(T("voiceFull"))+'</button>'+
+        '<button type="button" class="chip" id="fieldMgr" title="'+esc(T("fieldManager"))+'">⚙ '+esc(T("fieldManager"))+'</button>'+
+      '</div>'+
+    '</div>'+
+    '<div class="q">'+
+      '<h2>'+esc(lbl)+'</h2>'+
+      '<div style="position:relative">'+
+        '<input id="in" value="'+esc(v)+'" placeholder="'+esc(ph)+'" autocomplete="off" style="padding-inline-end:56px">'+
+        '<button type="button" class="mic" id="micBtn" title="🎤" style="position:absolute;inset-inline-end:6px;top:50%;transform:translateY(-50%)">🎤</button>'+
+      '</div>'+
+      chipHtml+
+    '</div>'+
+    '<div class="row">'+
+      '<button class="btn g" id="pv" '+(cur.i === 0 ? 'style="visibility:hidden"' : '')+'>'+esc(T("prev"))+'</button>'+
+      '<div style="display:flex;gap:8px">'+
+        '<button class="btn g" id="x">'+esc(T("cancel"))+'</button>'+
+        '<button class="btn" id="nx">'+esc(last ? T("save") : (fieldOpt(s) && !v ? T("skip") : T("next")))+'</button>'+
+      '</div>'+
+    '</div>';
+  setTimeout(function(){ var i = $("in"); if (i) i.focus(); }, 80);
+}
+
+function nxt(){
+  var fields = cur.fields;
+  var s = fields[cur.i];
+  var v = ($("in").value || "").trim();
+  if (fieldReq(s) && !v) {
+    $("in").style.borderColor = "#ef4444";
+    setTimeout(function(){ if ($("in")) $("in").style.borderColor = ""; }, 900);
+    return;
+  }
+  cur.d[s.id] = v;
+  if (cur.i === fields.length - 1) {
+    save(cur.id, cur.d);
+    closeWiz();
+  } else {
+    cur.i++;
+    wiz();
+  }
+}
+
+function save(id, d){
+  d = Object.assign({}, d, {ts: d.ts || Date.now()});
+  delete d.id;
+  if (id) books = books.map(function(b){ return b.id === id ? Object.assign({}, d, {id:id}) : b; });
+  else books.unshift(Object.assign({}, d, {id:"l"+Date.now()}));
+  store.setItem(LS, JSON.stringify(books));
+  render();
+  toast(T("saved"));
+}
+
+function del(id){
+  var b = books.filter(function(x){ return x.id === id; })[0];
+  if (!b) return;
+  var askFn = T("deleteAsk");
+  var msg = (typeof askFn === "function") ? askFn(b.title) : "Delete?";
+  if (!confirm(msg)) return;
+  books = books.filter(function(x){ return x.id !== id; });
+  store.setItem(LS, JSON.stringify(books));
+  render();
+  toast(T("saved"));
+}
+
+/* ============================================================
+   Field Manager
+============================================================ */
+function openFieldManager(){
+  function row(f, idx){
+    var label = fieldLabel(f);
+    var badges = "";
+    if (fieldReq(f)) badges += '<span class="fm-badge req">'+esc(T("fieldRequired"))+'</span>';
+    if (f.builtin) badges += '<span class="fm-badge">'+esc(T("fieldBuiltin"))+'</span>';
+    else badges += '<span class="fm-badge custom">'+esc(T("fieldCustom"))+'</span>';
+
+    var upBtn = '<button type="button" class="fm-btn" data-up="'+idx+'" '+(idx===0?"disabled":"")+' title="'+esc(T("fieldUp"))+'">↑</button>';
+    var downBtn = '<button type="button" class="fm-btn" data-down="'+idx+'" '+(idx===FIELDS.length-1?"disabled":"")+' title="'+esc(T("fieldDown"))+'">↓</button>';
+    var toggleBtn = '<button type="button" class="fm-btn" data-toggle="'+idx+'" title="'+esc(T("fieldToggle"))+'">'+(f.visible?'👁':'🚫')+'</button>';
+    var delBtn = f.builtin ? '' : '<button type="button" class="fm-btn danger" data-del="'+idx+'" title="'+esc(T("removeBtn"))+'">🗑</button>';
+
+    return '<div class="fm-row '+(f.visible?'':'hidden')+'">'+
+      '<span class="fm-handle">☰</span>'+
+      '<div class="fm-name">'+esc(label)+
+        '<small>'+badges+(f.visible?'':' <em style="color:var(--err);font-style:normal">'+esc(T("fieldHidden"))+'</em>')+'</small>'+
+      '</div>'+
+      upBtn + downBtn + toggleBtn + delBtn +
+    '</div>';
+  }
+
+  var rows = FIELDS.map(row).join("");
+
+  $("box").innerHTML =
+    '<h2>'+esc(T("fieldManager"))+'</h2>'+
+    '<p style="color:var(--mut);font-size:13px;margin:0 0 16px;line-height:1.7">'+esc(T("fieldManagerHint"))+'</p>'+
+    '<div class="fm-list" id="fmlist">'+rows+'</div>'+
+    '<div class="fm-add">'+
+      '<input id="newFieldName" placeholder="'+esc(T("fieldNewPh"))+'" maxlength="40">'+
+      '<button type="button" class="btn" id="addFieldBtn" style="min-height:40px;padding:8px 18px">＋ '+esc(T("fieldAdd"))+'</button>'+
+    '</div>'+
+    '<div class="row" style="margin-top:18px">'+
+      '<button type="button" class="btn g" id="fmClose">'+esc(T("close"))+'</button>'+
+    '</div>';
+
+  $("fmClose").onclick = function(){ cur ? wiz() : closeWiz(); };
+  $("addFieldBtn").onclick = addCustomField;
+
+  $("fmlist").addEventListener("click", function(e){
+    var el = e.target.closest("[data-up],[data-down],[data-toggle],[data-del]");
+    if (!el) return;
+    if (el.dataset.up !== undefined) {
+      var i = +el.dataset.up;
+      if (i > 0) { var tmp = FIELDS[i]; FIELDS[i] = FIELDS[i-1]; FIELDS[i-1] = tmp; saveFields(); openFieldManager(); }
+    } else if (el.dataset.down !== undefined) {
+      var j = +el.dataset.down;
+      if (j < FIELDS.length-1) { var tmp2 = FIELDS[j]; FIELDS[j] = FIELDS[j+1]; FIELDS[j+1] = tmp2; saveFields(); openFieldManager(); }
+    } else if (el.dataset.toggle !== undefined) {
+      var k = +el.dataset.toggle;
+      FIELDS[k].visible = FIELDS[k].visible ? 0 : 1;
+      saveFields();
+      openFieldManager();
+    } else if (el.dataset.del !== undefined) {
+      var m = +el.dataset.del;
+      var f = FIELDS[m];
+      if (f.builtin) return;
+      var askFn = T("fieldDeleteAsk");
+      var msg = (typeof askFn === "function") ? askFn(fieldLabel(f)) : "Delete?";
+      if (!confirm(msg)) return;
+      FIELDS.splice(m, 1);
+      saveFields();
+      toast(T("fieldRemoved"));
+      openFieldManager();
+    }
+  });
+
+  $("newFieldName").addEventListener("keydown", function(e){
+    if (e.key === "Enter") { e.preventDefault(); addCustomField(); }
+  });
+}
+
+function addCustomField(){
+  var inp = $("newFieldName");
+  if (!inp) return;
+  var name = (inp.value || "").trim();
+  if (!name) return;
+  var exists = FIELDS.some(function(f){
+    return (fieldLabel(f) || "").toLowerCase() === name.toLowerCase() ||
+           (f.label || "").toLowerCase() === name.toLowerCase();
+  });
+  if (exists) { toast(T("fieldExists")); return; }
+  var id = "custom_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2,6);
+  FIELDS.push({
+    id: id,
+    label: name,
+    ph: "",
+    builtin: 0,
+    visible: 1,
+    icon: "📌"
+  });
+  saveFields();
+  inp.value = "";
+  toast(T("fieldAdded"));
+  openFieldManager();
+}
+
+/* ============================================================
+   Voice Dialog Panel
+============================================================ */
+function openVoicePanel(){
+  var ex = $("vPanel"); if (ex) ex.remove();
+
+  var panelHTML =
+    '<div class="voice-panel" id="vPanel">'+
+      '<h4>🎙 '+esc(T("voiceFull"))+'</h4>'+
+      '<p style="color:var(--mut);font-size:12.5px;margin:0 0 12px;line-height:1.7">'+esc(T("voiceFullHint"))+'</p>'+
+      '<div class="voice-transcript" id="vTrans" data-ph="'+esc(T("voiceTranscriptPh"))+'"></div>'+
+      '<div class="voice-waves" id="vWaves">'+
+        '<span></span><span></span><span></span><span></span><span></span>'+
+        '<span></span><span></span><span></span><span></span>'+
+      '</div>'+
+      '<p style="color:var(--mut);font-size:12px;margin:10px 0;line-height:1.7;padding:8px 12px;background:rgba(124,58,237,.06);border-radius:8px">💡 '+esc(T("voiceExample"))+'</p>'+
+      '<div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">'+
+        '<button type="button" class="btn" id="vStart" style="flex:1;min-width:120px">'+esc(T("voiceStartBtn"))+'</button>'+
+        '<button type="button" class="btn" id="vStop" style="flex:1;min-width:100px;display:none;background:#ef4444;box-shadow:0 6px 20px rgba(239,68,68,.4)">'+esc(T("voiceStopBtn"))+'</button>'+
+        '<button type="button" class="btn g" id="vClose" style="flex:0 0 auto">'+esc(T("cancel"))+'</button>'+
+      '</div>'+
+    '</div>';
+
+  $("box").insertAdjacentHTML("afterbegin", panelHTML);
+  $("vClose").onclick = function(){ Voice.stop(); var p = $("vPanel"); if (p) p.remove(); };
+  $("vStart").onclick = function(){ startVoiceDialog(); };
+  $("vStop").onclick = function(){ Voice.finish(); };
+}
+
+function startVoiceDialog(){
+  var trans = $("vTrans"), waves = $("vWaves");
+  var btnStart = $("vStart"), btnStop = $("vStop");
+  if (!trans || !btnStart) return;
+  trans.textContent = "";
+  trans.setAttribute("data-ph", T("voiceListening"));
+  if (waves) waves.classList.add("on");
+  btnStart.style.display = "none";
+  btnStop.style.display = "";
+
+  var started = Voice.start({
+    onUpdate: function(txt){ trans.textContent = txt || ""; },
+    onError: function(err){
+      reset();
+      if (err === "not-allowed" || err === "service-not-allowed") toast(T("micDenied"));
+      else if (err === "unsupported") toast(T("voiceNotSupported"));
+    },
+    onDone: function(txt){
+      if (txt && txt.trim()) applyFullVoice(txt);
+      else reset();
+    }
+  });
+  if (!started) reset();
+
+  function reset(){
+    if (waves) waves.classList.remove("on");
+    if (btnStart) btnStart.style.display = "";
+    if (btnStop) btnStop.style.display = "none";
+  }
+}
+
+function applyFullVoice(text){
+  var parsed = smartParse(text);
+  var any = false;
+  FIELDS.forEach(function(f){ if (parsed[f.id]) any = true; });
+  if (!any) {
+    toast(T("voiceParseFail"));
+    var p = $("vPanel"); if (p) p.remove();
+    return;
+  }
+
+  FIELDS.forEach(function(f){ if (parsed[f.id]) cur.d[f.id] = parsed[f.id]; });
+
+  var preview = "";
+  FIELDS.forEach(function(f){
+    var v = cur.d[f.id];
+    if (v) preview += '<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)">'+
+      '<b style="min-width:80px;color:var(--mut);font-size:12.5px;font-weight:600">'+esc(fieldLabel(f))+'</b>'+
+      '<span style="flex:1;font-size:13.5px;color:var(--ink)">'+esc(v)+'</span></div>';
+  });
+
+  $("box").innerHTML =
+    '<h2 style="margin-top:0">'+esc(T("voiceParseOk"))+'</h2>'+
+    '<p style="color:var(--mut);font-size:13.5px;margin:0 0 16px;line-height:1.7">'+esc(T("voiceParseConfirm"))+'</p>'+
+    '<div style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 18px;margin-bottom:8px;max-height:50vh;overflow-y:auto">'+preview+'</div>'+
+    '<div class="row">'+
+      '<button type="button" class="btn g" id="vBack">'+esc(T("cancel"))+'</button>'+
+      '<button type="button" class="btn" id="vApply">'+esc(T("voiceApplyBtn"))+'</button>'+
+    '</div>';
+
+  $("vBack").onclick = function(){ wiz(); };
+  $("vApply").onclick = function(){
+    save(cur.id, cur.d);
+    closeWiz();
+    toast(T("saved"));
+  };
+}
+
+/* ============================================================
+   Box events
+============================================================ */
+$("box").addEventListener("click", function(e){
+  var el = e.target;
+
+  if (el.dataset && el.dataset.c && cur) { $("in").value = el.dataset.c; nxt(); return; }
+
+  if (el.id === "nx" && cur) nxt();
+  else if (el.id === "x" && cur) closeWiz();
+  else if (el.id === "pv" && cur) { cur.d[cur.fields[cur.i].id] = $("in").value.trim(); cur.i--; wiz(); }
+  else if (el.id === "voiceFull" && cur) openVoicePanel();
+  else if (el.id === "fieldMgr" && cur) openFieldManager();
+  else if (el.id === "micBtn" && cur) startFieldVoice(el);
+  else if (el.id === "dx") closeWiz();
+  else if (el.id === "ddl" && det) { var id = det; closeWiz(); del(id); }
+  else if (el.id === "dsv") saveDetail();
+});
+
+$("box").addEventListener("keydown", function(e){
+  if (e.key === "Enter" && e.target.id === "in" && cur) { e.preventDefault(); nxt(); }
+});
+
+function startFieldVoice(btn){
+  if (Voice.active) { Voice.finish(); btn.classList.remove("on"); return; }
+  var input = $("in");
+  if (!input) return;
+  input.value = "";
+  btn.classList.add("on");
+  toast(T("micWorking"));
+  var ok = Voice.start({
+    onUpdate: function(txt){ input.value = txt; },
+    onDone: function(txt){
+      btn.classList.remove("on");
+      var final = convertNumbers(normalizeText(txt)).trim();
+      if (!final) return;
+      var s = cur.fields[cur.i];
+      if (s.id === "genre") {
+        var genres = fieldChips(s) || [];
+        var best = final, bestScore = 0;
+        genres.forEach(function(g){
+          var sc = similarity(normalizeText(g).toLowerCase(), final.toLowerCase());
+          if (sc > bestScore) { bestScore = sc; best = g; }
+        });
+        if (bestScore >= 0.55) final = best;
+      }
+      input.value = final;
+      setTimeout(nxt, 500);
+    },
+    onError: function(err){
+      btn.classList.remove("on");
+      if (err === "not-allowed" || err === "service-not-allowed") toast(T("micDenied"));
+      else if (err === "unsupported") toast(T("voiceNotSupported"));
+    }
+  });
+  if (!ok) btn.classList.remove("on");
+}
+
+/* ============================================================
+   Grid events
+============================================================ */
+$("grid").addEventListener("click", function(e){
+  var a = e.target.closest("[data-a]");
+  if (!a) return;
+  var card = a.closest(".card"); if (!card) return;
+  var id = card.dataset.id;
+  var b = books.filter(function(x){ return x.id === id; })[0];
+  if (a.dataset.a === "d") del(id);
+  else if (a.dataset.a === "e") openWiz(b);
+  else if (a.dataset.a === "p" || a.dataset.a === "v") openDetail(b);
+});
+$("grid").addEventListener("pointermove", function(e){
+  var c = e.target.closest(".card");
+  if (!c || e.pointerType === "touch") return;
+  var r = c.getBoundingClientRect();
+  c.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");
+  c.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
+});
+document.addEventListener("pointermove", function(e){
+  var m = $("mesh"); if (!m) return;
+  m.style.setProperty("--mx", (e.clientX / innerWidth * 100) + "%");
+  m.style.setProperty("--my", (e.clientY / innerHeight * 100) + "%");
+}, {passive:true});
+
+/* Search + Chips */
+$("s").addEventListener("input", function(e){ q = e.target.value; render(); });
+$("chips").addEventListener("click", function(e){
+  var c = e.target.closest(".chip");
+  if (c) { gf = c.dataset.g; render(); }
+});
+
+/* Search mic */
+$("smic").onclick = function(){
+  var btn = this;
+  if (Voice.active) { Voice.finish(); btn.classList.remove("on"); return; }
+  var input = $("s");
+  var original = input.value;
+  btn.classList.add("on");
+  Voice.start({
+    onUpdate: function(txt){ input.value = txt; q = txt; render(); },
+    onDone: function(txt){
+      btn.classList.remove("on");
+      var final = convertNumbers(normalizeText(txt)).trim();
+      if (final) { input.value = final; q = final; render(); }
+      else input.value = original;
+    },
+    onError: function(err){
+      btn.classList.remove("on");
+      if (err === "not-allowed" || err === "service-not-allowed") toast(T("micDenied"));
+      else if (err === "unsupported") toast(T("voiceNotSupported"));
+    }
+  });
+};
+
+/* ============================================================
+   Buttons
+============================================================ */
+$("themeBtn").onclick = cycleTheme;
+$("addBtn").onclick = function(){ openWiz(); };
+$("fab").onclick = function(){ openWiz(); };
+
+$("bkBtn").onclick = function(){
+  var data = JSON.stringify({
+    v:2,
+    fields: FIELDS,
+    books: books.map(function(b){ var c = Object.assign({}, b); delete c.id; return c; })
+  });
+  download("library-backup-" + new Date().toISOString().slice(0,10) + ".json", data, "application/json");
+};
+$("imBtn").onclick = function(){ $("imf").click(); };
+$("imf").onchange = function(e){
+  var f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    try {
+      var j = JSON.parse(r.result);
+      var rows = Array.isArray(j) ? j : (j.books || []);
+      if (j.fields && Array.isArray(j.fields) && j.fields.length) {
+        FIELDS = j.fields;
+        saveFields();
+      }
+      var have = {}; books.forEach(function(b){ have[(b.title||"")+"|"+(b.author||"")] = 1; });
+      var add = 0, skip = 0;
+      rows.forEach(function(b){
+        var key = (b.title||"")+"|"+(b.author||"");
+        if (!b.title || have[key]) { skip++; return; }
+        have[key] = 1; delete b.id;
+        books.unshift(Object.assign({}, b, {id: "l"+Date.now()+Math.random()}));
+        add++;
+      });
+      store.setItem(LS, JSON.stringify(books));
+      render();
+      var okFn = T("importOK");
+      toast(typeof okFn === "function" ? okFn(add, skip) : (add + " added"));
+    } catch(err) { toast(T("importBad")); }
+  };
+  r.readAsText(f);
+};
+$("expBtn").onclick = function(){
+  var vf = visibleFields();
+  var H = vf.map(function(f){ return fieldLabel(f); });
+  var rows = [H].concat(books.map(function(b){ return vf.map(function(f){ return b[f.id] || ""; }); }));
+  var csv = "\ufeff" + rows.map(function(r){
+    return r.map(function(c){ return '"' + String(c).replace(/"/g, '""') + '"'; }).join(",");
+  }).join("\n");
+  download("library.csv", csv, "text/csv;charset=utf-8");
+};
+function download(name, data, type){
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([data], {type:type}));
+  a.download = name;
+  a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+}
+
+/* ============================================================
+   Detail modal
+============================================================ */
+function openDetail(b){
+  if (!b) return;
+  det = b.id; dph = b.photo || "";
+  var info = "";
+  FIELDS.forEach(function(f){
+    var v = b[f.id]; if (!v) return;
+    info += '<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)">'+
+      '<b style="min-width:80px;color:var(--mut);font-size:12.5px;font-weight:600">'+esc(fieldLabel(f))+'</b>'+
+      '<span style="flex:1;font-size:13.5px;color:var(--ink)">'+esc(v)+'</span></div>';
+  });
+  $("box").innerHTML =
+    '<h2 style="margin-top:0">'+esc(b.title||"")+'</h2>'+
+    '<div id="pvv" style="height:150px;border-radius:11px;border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--mut);font-size:13px;background:var(--card);margin-bottom:12px">'+
+      (dph ? '<img src="'+dph+'" alt="" style="width:100%;height:100%;object-fit:cover">' : T("photoNone"))+
+    '</div>'+
+    '<label class="btn g sm" style="text-align:center;cursor:pointer;position:relative;overflow:hidden;display:block;width:100%">'+
+      (dph ? T("photoChange") : T("photoChoose"))+
+      '<input type="file" id="pf" accept="image/*" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer">'+
+    '</label>'+
+    '<div style="margin-top:14px">'+info+'</div>'+
+    '<div class="row">'+
+      '<button type="button" class="btn g" id="dx">'+esc(T("close"))+'</button>'+
+      '<button type="button" class="btn g" id="ddl" style="color:var(--err)">'+esc(T("deleteBtn"))+'</button>'+
+      '<button type="button" class="btn" id="dsv">'+esc(T("save"))+'</button>'+
+    '</div>';
+  $("md").classList.add("on");
+
+  $("pf").onchange = function(e){
+    var f = e.target.files[0]; if (!f) return;
+    var r = new FileReader();
+    r.onload = function(){
+      var i = new Image();
+      i.onload = function(){
+        try {
+          var k = Math.min(1, 480/Math.max(i.width,i.height));
+          var c = document.createElement("canvas");
+          c.width = Math.round(i.width*k); c.height = Math.round(i.height*k);
+          c.getContext("2d").drawImage(i, 0, 0, c.width, c.height);
+          dph = c.toDataURL("image/jpeg", .78);
+          $("pvv").innerHTML = '<img src="'+dph+'" style="width:100%;height:100%;object-fit:cover">';
+        } catch(err) {}
+      };
+      i.src = r.result;
+    };
+    r.readAsDataURL(f);
+  };
+}
+function saveDetail(){
+  var b = books.filter(function(x){ return x.id === det; })[0];
+  if (!b) return;
+  var updated = Object.assign({}, b, {photo: dph});
+  books = books.map(function(x){ return x.id === det ? updated : x; });
+  store.setItem(LS, JSON.stringify(books));
+  render();
+  closeWiz();
+  toast(T("saved"));
+}
+
+/* ============================================================
+   Init
+============================================================ */
+function init(){
+  try {
+    applyTheme();
+    buildLangBar();
+    applyI18n();
+    console.log("Library ready | lang:", LANG, "| theme:", THEME, "| fields:", FIELDS.length, "| books:", books.length);
+
+    document.addEventListener("keydown", function(e){
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") { e.preventDefault(); $("s").focus(); }
+      if (e.key === "Escape" && $("md").classList.contains("on")) closeWiz();
+    });
+    $("md").addEventListener("click", function(e){ if (e.target === $("md")) closeWiz(); });
+    $("warnX").onclick = function(){
+      __warnDismissed = true;
+      try { localStorage.setItem("lib_warn_dismissed", "1"); } catch(e) {}
+      $("warn").classList.remove("on");
+    };
+  } catch(e) { console.error("init:", e); }
+}
+init();
+setInterval(tick, 60000);
+</script>
+</body>
+</html>
